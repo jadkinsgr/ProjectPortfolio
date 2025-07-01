@@ -1,0 +1,46 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="150" fill="url(#profileGradient)"/>
+  
+  <!-- Profile Icon -->
+  <g transform="translate(150, 150)">
+    <!-- Head -->
+    <circle cx="0" cy="-20" r="25" fill="white" opacity="0.9"/>
+    
+    <!-- Body -->
+    <path d="M-35 20 Q-35 0 -25 -5 L25 -5 Q35 0 35 20 L35 40 Q35 50 25 50 L-25 50 Q-35 50 -35 40 Z" 
+          fill="white" opacity="0.9"/>
+    
+    <!-- Decorative Elements -->
+    <circle cx="-40" cy="-40" r="3" fill="white" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="-30" r="2" fill="white" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="-30" cy="60" r="2.5" fill="white" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="35" cy="55" r="2" fill="white" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="profileGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Subtle Animation -->
+  <animateTransform
+    attributeName="transform"
+    attributeType="XML"
+    type="rotate"
+    from="0 150 150"
+    to="360 150 150"
+    dur="20s"
+    repeatCount="indefinite"/>
+</svg>
