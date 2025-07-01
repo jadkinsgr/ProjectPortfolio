@@ -23,7 +23,7 @@ A modern, responsive personal portfolio website built with vanilla HTML, CSS, an
 2. Upload all files to the repository
 3. Go to Settings > Pages
 4. Select "Deploy from a branch" and choose "main"
-5. Your site will be available at `https://username.github.io/repository-name`
+5. Your site will be available at `https://jadkinsgr.github.io/my-portfolio`
 
 ### 2. Netlify
 **Cost**: Free tier with generous limits
