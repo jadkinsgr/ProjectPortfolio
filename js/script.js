@@ -133,13 +133,15 @@ function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(`
         .hero-content,
         .about-content,
+        .timeline,
         .projects-grid,
         .skills-grid,
         .blog-grid,
         .contact-content,
         .project-card,
         .blog-card,
-        .skill-category
+        .skill-category,
+        .timeline-item
     `);
 
     animatedElements.forEach(el => {
