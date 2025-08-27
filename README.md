@@ -62,7 +62,7 @@ portfolio/
 ├── js/
 │   └── script.js       # Interactive functionality
 ├── assets/
-│   └── profile-placeholder.svg
+│   └── Self_Favorite.png
 └── README.md           # This file
 ```
 
@@ -96,7 +96,7 @@ The site uses CSS custom properties for easy color customization. Main gradient 
 4. Update skills to match your expertise
 
 ### Images
-- Replace `assets/profile-placeholder.svg` with your profile photo
+- Update `assets/Self_Favorite.png` with your preferred profile photo
 - Add project screenshots to enhance the project cards
 - Optimize images for web (WebP format recommended)
 
