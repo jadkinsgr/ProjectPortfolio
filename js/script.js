@@ -102,8 +102,8 @@ function initSmoothScrolling() {
 // Scroll animations
 function initScrollAnimations() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.15,
+        rootMargin: '0px 0px -20px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -121,7 +121,8 @@ function initScrollAnimations() {
                         setTimeout(() => {
                             item.style.opacity = '1';
                             item.style.transform = 'translateY(0)';
-                        }, index * 100);
+                            item.classList.add('appear');
+                        }, index * 150);
                     });
                 }
             }
@@ -146,21 +147,21 @@ function initScrollAnimations() {
         observer.observe(el);
     });
 
-    // Initialize grid items with hidden state
+    // Initialize grid items with better visibility
     document.querySelectorAll('.project-card, .blog-card, .skill-category').forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(30px)';
-        item.style.transition = 'all 0.6s ease';
+        item.style.opacity = '0.3';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
     });
 }
 
 // Typing effect for hero section
 function initTypingEffect() {
     const roles = [
-        'Full Stack Developer',
-        'UI/UX Designer',
-        'Problem Solver',
-        'Creative Thinker'
+        'Data Engineer',
+        'UI/UX Engineer', 
+        'Healthcare Tech Specialist',
+        'Fintech Developer'
     ];
     
     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -202,16 +203,28 @@ function initTypingEffect() {
     setTimeout(typeRole, 1000);
 }
 
-// Parallax effect for hero section
+// Parallax effect for hero section (improved)
 function initParallaxEffect() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
     
-    window.addEventListener('scroll', function() {
+    let ticking = false;
+    
+    function updateParallax() {
         const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
+        const parallaxSpeed = 0.3;
         
-        hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        // Only apply parallax to pseudo-elements to avoid text displacement
+        hero.style.setProperty('--scroll-offset', `${scrolled * parallaxSpeed}px`);
+        
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
     });
 }
 
