@@ -458,46 +458,7 @@ function initLazyLoading() {
     images.forEach(img => imageObserver.observe(img));
 }
 
-// Mouse cursor effect
-function initCursorEffect() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: all 0.1s ease;
-        opacity: 0;
-    `;
-    document.body.appendChild(cursor);
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        cursor.style.opacity = '1';
-    });
-    
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-    });
-    
-    // Scale effect on hover
-    const hoverElements = document.querySelectorAll('a, button, .project-card, .blog-card');
-    hoverElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-    });
-}
+
 
 // Performance optimization
 function optimizePerformance() {
@@ -530,7 +491,6 @@ function optimizePerformance() {
 // Initialize additional features
 window.addEventListener('load', function() {
     initLazyLoading();
-    initCursorEffect();
     optimizePerformance();
 });
 
