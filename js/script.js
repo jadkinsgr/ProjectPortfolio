@@ -305,11 +305,11 @@ function highlightField(fieldName, hasError) {
     if (!field) return;
     
     if (hasError) {
-        field.style.borderColor = '#e74c3c';
-        field.style.backgroundColor = '#fdf2f2';
+        field.style.borderColor = 'rgba(248, 113, 113, 0.85)';
+        field.style.backgroundColor = 'rgba(127, 29, 29, 0.2)';
     } else {
-        field.style.borderColor = '#27ae60';
-        field.style.backgroundColor = '#f2fdf2';
+        field.style.borderColor = 'rgba(164, 216, 255, 0.45)';
+        field.style.backgroundColor = 'rgba(42, 45, 48, 0.95)';
     }
 }
 
@@ -335,8 +335,8 @@ function submitForm(data) {
         ['name', 'email', 'subject', 'message'].forEach(field => {
             const element = document.getElementById(field);
             if (element) {
-                element.style.borderColor = '#e9ecef';
-                element.style.backgroundColor = 'white';
+                element.style.borderColor = '';
+                element.style.backgroundColor = '';
             }
         });
         
@@ -475,7 +475,7 @@ function optimizePerformance() {
     
     // Preload critical resources
     const criticalResources = [
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     ];
     
