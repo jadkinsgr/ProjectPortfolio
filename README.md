@@ -79,7 +79,7 @@ Have messy data? Let's make it magic. ✨
 
 <p>
   <a href="mailto:business.joshadkins@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-business.joshadkins%40gmail.com-c4b5fd?style=for-the-badge&logo=gmail&logoColor=white"></a>
-  <a href="https://cal.com/josh-adkins/60-min-meeting?overlayCalendar=true"><img alt="Book a call" src="https://img.shields.io/badge/Book%20a%20call-cal.com-a78bfa?style=for-the-badge&logo=googlecalendar&logoColor=white"></a>
+  <a href="https://cal.com/josh-adkins/30min?overlayCalendar=true"><img alt="Book a call" src="https://img.shields.io/badge/Book%20a%20call-cal.com-a78bfa?style=for-the-badge&logo=googlecalendar&logoColor=white"></a>
 </p>
 <p>
   <a href="https://www.linkedin.com/in/joshua-t-adkins/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Joshua%20T.%20Adkins-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"></a>
