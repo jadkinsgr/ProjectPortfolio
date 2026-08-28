@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Josh Adkins — Solution Architect &amp; Data Engineer (v2 mockup)</title>
+<meta name="description" content="Josh Adkins — Solution Architect & Data Engineer specializing in healthcare data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root, :root[data-theme="dark"] {
+    --bg: #09090B;
+    --bg-elev: #111114;
+    --surface: #18181B;
+    --border: #27272A;
+    --text: #E4E4E7;
+    --text-strong: #FAFAFA;
+    --muted: #A1A1AA;
+    --accent: #3B82F6;
+    --accent-strong: #2563EB;
+    --on-accent: #FFFFFF;
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  }
+  :root[data-theme="light"] {
+    --bg: #FAFAFA;
+    --bg-elev: #FFFFFF;
+    --surface: #FFFFFF;
+    --border: #E4E4E7;
+    --text: #18181B;
+    --text-strong: #09090B;
+    --muted: #52525B;
+    --accent: #2563EB;
+    --accent-strong: #1D4ED8;
+    --on-accent: #FFFFFF;
+    --grid-line: rgba(0, 0, 0, 0.045);
+    --shadow: 0 20px 50px rgba(9, 9, 11, 0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Roboto Mono", ui-monospace, monospace;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+  h1, h2, h3 { font-family: "Exo", system-ui, sans-serif; color: var(--text-strong); line-height: 1.1; }
+  a, button { cursor: pointer; font-family: inherit; }
+  ::selection { background: var(--accent); color: var(--on-accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 999;
+    background: var(--accent-strong); color: var(--on-accent);
+    padding: 12px 20px; text-decoration: none; border-radius: 0 0 10px 0;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* ---------- Motion: entrance reveals (disabled under reduced motion) ---------- */
+  [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 500ms cubic-bezier(.2,.7,.2,1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+    *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ---------- Nav ---------- */
+  nav.top {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-strong); font-family: "Exo", sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.02em; }
+  .brand .sq { width: 12px; height: 12px; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 13px; letter-spacing: 0.04em;
+    padding: 10px 14px; min-height: 44px; display: inline-flex; align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 200ms, border-color 200ms;
+  }
+  .nav-links a:hover { color: var(--text-strong); border-color: var(--accent); }
+  .theme-btn {
+    width: 44px; height: 44px; display: grid; place-items: center;
+    background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+    transition: transform 200ms, border-color 200ms;
+  }
+  .theme-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  :root[data-theme="dark"] .icon-sun { display: block; }
+  :root[data-theme="dark"] .icon-moon { display: none; }
+  :root[data-theme="light"] .icon-sun { display: none; }
+  :root[data-theme="light"] .icon-moon { display: block; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: clamp(72px, 12vh, 130px) 0 72px; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 0.18em; color: var(--accent);
+    border: 1px solid var(--border); background: var(--bg-elev);
+    padding: 8px 16px; border-radius: 4px; margin-bottom: 28px;
+  }
+  .kicker .pulse { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; box-shadow: 0 0 10px #22C55E; }
+  .hero h1 { font-size: clamp(44px, 7vw, 88px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .role { font-size: clamp(15px, 1.6vw, 18px); color: var(--muted); margin: 18px 0 36px; max-width: 62ch; }
+  .hero .role strong { color: var(--text-strong); font-weight: 500; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    font-family: "Exo", sans-serif; font-weight: 600; font-size: 15px;
+    padding: 13px 26px; min-height: 50px; border-radius: 8px; border: 1px solid transparent;
+    transition: transform 220ms, box-shadow 220ms, background 220ms, border-color 220ms;
+  }
+  .btn-primary { background: var(--accent-strong); color: var(--on-accent); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px color-mix(in srgb, var(--accent) 50%, transparent); }
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--text-strong); transform: translateY(-2px); }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, minmax(0, 220px)); gap: 16px; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; position: relative; overflow: hidden;
+    transition: border-color 220ms, transform 220ms;
+  }
+  .stat:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+  .stat b { display: block; font-family: "Exo", sans-serif; font-size: 30px; font-weight: 800; color: var(--text-strong); font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 11.5px; letter-spacing: 0.14em; color: var(--muted); }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: 84px 0; }
+  .sec-label { font-size: 12px; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 10px; }
+  .sec-title { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .sec-sub { color: var(--muted); max-width: 60ch; margin-bottom: 44px; }
+
+  /* ---------- Filterable project grid ---------- */
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+  .chip {
+    font-family: "Roboto Mono", monospace; font-size: 13px;
+    background: var(--surface); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 9px 18px; min-height: 44px;
+    transition: color 200ms, border-color 200ms, background 200ms;
+  }
+  .chip:hover { color: var(--text-strong); border-color: var(--accent); }
+  .chip[aria-pressed="true"] { background: var(--accent-strong); color: var(--on-accent); border-color: var(--accent-strong); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .proj {
+    grid-column: span 1; position: relative; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 26px; display: flex; flex-direction: column; gap: 12px; min-height: 250px;
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1), border-color 260ms, box-shadow 260ms, opacity 300ms;
+  }
+  .proj.featured { grid-column: span 2; }
+  .proj:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .proj.hidden { display: none; }
+  .proj .client { font-size: 12px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; padding-right: 104px; }
+  .proj h3 { font-size: 21px; font-weight: 700; }
+  .proj p { font-size: 13.5px; color: var(--muted); }
+  .proj .metric {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--accent); font-weight: 500;
+  }
+  .proj .cat-tag { position: absolute; top: 18px; right: 18px; font-size: 10.5px; letter-spacing: 0.1em; color: var(--muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; text-transform: uppercase; }
+  .proj .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 320ms cubic-bezier(.2,.7,.2,1); }
+  .proj:hover .bar { transform: scaleX(1); }
+
+  /* ---------- Philosophy ---------- */
+  .principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .principle { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: transform 220ms, border-color 220ms; }
+  .principle:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .principle .ic { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); margin-bottom: 16px; }
+  .principle h3 { font-size: 16px; margin-bottom: 6px; }
+  .principle p { font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Experience ---------- */
+  .timeline { border-left: 2px solid var(--border); padding-left: 28px; display: flex; flex-direction: column; gap: 26px; max-width: 760px; }
+  .t-item { position: relative; }
+  .t-item::before {
+    content: ""; position: absolute; left: -35px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent);
+  }
+  .t-item .when { font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+  .t-item h3 { font-size: 17px; margin: 4px 0 2px; }
+  .t-item .org { font-size: 13px; color: var(--muted); }
+
+  /* ---------- Contact ---------- */
+  .contact-band {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: clamp(36px, 6vw, 64px); text-align: center; position: relative; overflow: hidden;
+  }
+  .contact-band::before {
+    content: ""; position: absolute; inset: -40% 30% auto; height: 200px;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 25%, transparent), transparent);
+    pointer-events: none;
+  }
+  .contact-band h2 { font-size: clamp(30px, 4.4vw, 50px); font-weight: 800; margin-bottom: 12px; }
+  .contact-band p { color: var(--muted); margin-bottom: 32px; }
+  .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 0; margin-top: 60px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+  .foot .socials { display: flex; gap: 6px; }
+  .foot .socials a { width: 44px; height: 44px; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--border); border-radius: 10px; transition: color 200ms, border-color 200ms, transform 200ms; }
+  .foot .socials a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+
+  @media (max-width: 1024px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .proj.featured { grid-column: span 2; }
+    .principles { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .grid { grid-template-columns: 1fr; }
+    .proj.featured { grid-column: span 1; }
+    .principles { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    section { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="top" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="brand" href="#top"><span class="sq" aria-hidden="true"></span>JOSH ADKINS</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-btn" id="themeToggle" aria-label="Switch to light theme">
+      <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <header id="top" class="hero container">
+    <div data-reveal>
+      <span class="kicker"><span class="pulse" aria-hidden="true"></span>AVAILABLE FOR HEALTHCARE &amp; ENTERPRISE DATA WORK</span>
+      <h1>Data, engineered.<br><span class="accent">Decisions, unlocked.</span></h1>
+      <p class="role">Solution architect &amp; data engineer with <strong>a decade inside enterprise healthcare</strong> — Cerner, Epic, and the modern lakehouse. I turn fragmented clinical data into scalable, secure cloud systems with real financial impact.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#work">
+          View selected work
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#contact">Let's talk</a>
+        <a class="btn btn-ghost" href="#" aria-label="Download résumé">
+          Résumé
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        </a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>10+</b><span>YEARS IN DATA</span></div>
+        <div class="stat"><b>$1M+</b><span>REVENUE UNLOCKED</span></div>
+        <div class="stat"><b>95%</b><span>PROVIDER PSAT</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ WORK: FILTERABLE GRID ============ -->
+  <section id="work">
+    <div class="container">
+      <div data-reveal>
+        <p class="sec-label">01 — SELECTED WORK</p>
+        <h2 class="sec-title">Case studies that moved the needle.</h2>
+        <p class="sec-sub">Filter by the kind of problem you're facing.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter projects by category" data-reveal>
+        <button class="chip" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" data-filter="integration" aria-pressed="false">Integration</button>
+        <button class="chip" data-filter="cloud" aria-pressed="false">Cloud Platforms</button>
+        <button class="chip" data-filter="migration" aria-pressed="false">Migrations</button>
+        <button class="chip" data-filter="analytics" aria-pressed="false">Analytics &amp; Quality</button>
+      </div>
+
+      <div class="grid" id="projGrid">
+        <article class="proj featured" data-cat="integration" data-reveal>
+          <span class="cat-tag">Integration</span>
+          <span class="client">Clearview · Clearway · Consensus</span>
+          <h3>Unified billing platform integration</h3>
+          <p>Multiple CedarPay implementations across enterprise healthcare orgs, powered by a reusable Athena-based code-generation framework — cutting developer effort by hundreds of hours and timelines by up to 50%.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>
+            $700K–$1M+ annualized · 93–95%+ PSAT
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+
+        <article class="proj" data-cat="cloud" data-reveal>
+          <span class="cat-tag">Cloud</span>
+          <span class="client">Geisinger Health</span>
+          <h3>Cloud-native AWS data platform</h3>
+          <p>Streaming-enabled AWS architecture unifying siloed healthcare data for real-time analytics.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Real-time streaming analytics
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+
+        <article class="proj" data-cat="migration" data-reveal>
+          <span class="cat-tag">Migration</span>
+          <span class="client">Bon Secours Mercy Health</span>
+          <h3>Population health data migration</h3>
+          <p>Payer and community-program data streamlined into Databricks on Azure for actionable population-health insight.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"/><path d="M8 16h.01M8 20h.01M12 18h.01M12 22h.01M16 16h.01M16 20h.01"/></svg>
+            Databricks on Azure
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+
+        <article class="proj" data-cat="cloud" data-reveal>
+          <span class="cat-tag">Cloud</span>
+          <span class="client">Baylor, Scott &amp; White</span>
+          <h3>Data modernization strategy</h3>
+          <p>Pharmacy, medicine and ordering data centralized in Snowflake + DBT — powering cost, adherence and dispensing-trend analysis.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+            Snowflake + DBT
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+
+        <article class="proj" data-cat="migration" data-reveal>
+          <span class="cat-tag">Migration</span>
+          <span class="client">St. Luke's University Health</span>
+          <h3>Large-scale cloud migration</h3>
+          <p>Network-wide migration from on-premise systems to Azure — scalability, security and real-time analytics.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            On-prem → Azure
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+
+        <article class="proj" data-cat="analytics" data-reveal>
+          <span class="cat-tag">Analytics</span>
+          <span class="client">Innovative Healthcare of Indiana</span>
+          <h3>Quality metrics enhancement</h3>
+          <p>Pipelines and reporting for HEDIS, CMS Star Ratings, Joint Commission, Leapfrog and HCAHPS — driving ratings, satisfaction and reimbursement.</p>
+          <span class="metric">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 4.86 5.36.78-3.88 3.78.92 5.34L12 14.24l-4.8 2.52.92-5.34L4.24 7.64l5.36-.78L12 2z"/></svg>
+            HEDIS · CMS Stars · HCAHPS
+          </span>
+          <span class="bar" aria-hidden="true"></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT / PHILOSOPHY ============ -->
+  <section id="about">
+    <div class="container">
+      <div data-reveal>
+        <p class="sec-label">02 — PHILOSOPHY</p>
+        <h2 class="sec-title">Pragmatic architecture that ships.</h2>
+        <p class="sec-sub">A decade almost entirely inside complex healthcare systems — from Cerner and Epic to the modern lakehouse. Four principles guide every engagement.</p>
+      </div>
+      <div class="principles">
+        <div class="principle" data-reveal>
+          <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+          <h3>Centralize the fragments</h3>
+          <p>Siloed EHR, payer and community data unified into one governed source of truth.</p>
+        </div>
+        <div class="principle" data-reveal>
+          <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <h3>Secure by default</h3>
+          <p>HIPAA-compliant pipelines with governance, validation and quality frameworks built in.</p>
+        </div>
+        <div class="principle" data-reveal>
+          <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></span>
+          <h3>Automate the toil</h3>
+          <p>Code generation and CI/CD that cut developer effort by hundreds of hours.</p>
+        </div>
+        <div class="principle" data-reveal>
+          <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg></span>
+          <h3>Measure the impact</h3>
+          <p>Architecture graded in dollars unlocked, satisfaction scores and hours saved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience">
+    <div class="container">
+      <div data-reveal>
+        <p class="sec-label">03 — EXPERIENCE</p>
+        <h2 class="sec-title">A decade across enterprise healthcare.</h2>
+      </div>
+      <div class="timeline" data-reveal>
+        <div class="t-item"><span class="when">2026 — PRESENT</span><h3>Business Intelligence</h3><span class="org">Deaconess Health System · Evansville, IN</span></div>
+        <div class="t-item"><span class="when">2025 — PRESENT</span><h3>Co-Founder &amp; Principal Architect</h3><span class="org">Midwest Dataworks · Grand Rapids, MI</span></div>
+        <div class="t-item"><span class="when">2025 — 2026</span><h3>Solutions Architect</h3><span class="org">Cedar · New York City, NY</span></div>
+        <div class="t-item"><span class="when">2025</span><h3>Solutions Architect &amp; Data Engineer</h3><span class="org">Nordic Global · Madison, WI</span></div>
+        <div class="t-item"><span class="when">2023 — 2025</span><h3>Data Engineering Consultant</h3><span class="org">Tegria · Seattle, WA</span></div>
+        <div class="t-item"><span class="when">2021 — 2023</span><h3>Senior Analytics Director</h3><span class="org">Health Catalyst · Salt Lake City, UT</span></div>
+        <div class="t-item"><span class="when">2016 — 2021</span><h3>Senior Application Developer</h3><span class="org">Corewell Health · Grand Rapids, MI</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-band" data-reveal>
+        <h2>Have messy data?<br>Let's make it behave.</h2>
+        <p>Based in Grand Rapids, MI — working with healthcare and enterprise teams anywhere.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:business.joshadkins@gmail.com">
+            Email me
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://cal.com/josh-adkins/30min?overlayCalendar=true">Book a 30-min call</a>
+          <a class="btn btn-ghost" href="#">Download résumé</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <span>© 2026 Josh Adkins · Solution Architect &amp; Data Engineer · Grand Rapids, MI</span>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/joshua-t-adkins/" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+      <a href="https://github.com/jadkinsgr" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+      </a>
+      <a href="https://public.tableau.com/app/profile/josh.adkins/vizzes" aria-label="Tableau Public">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 3h2v4h4v2h-4v4h-2V9H7V7h4V3zM3 11h4v2H3v-2zm14 0h4v2h-4v-2zm-6 6h2v4h-2v-4z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle (Motion-Driven style: dark default, dual-theme per skill's dark-mode-pairing rule)
+  const toggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  toggle.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    toggle.setAttribute('aria-label', 'Switch to ' + (next === 'dark' ? 'light' : 'dark') + ' theme');
+  });
+
+  // Scroll entrance reveals with stagger (skipped entirely under prefers-reduced-motion)
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('in'), (i % 6) * 40);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('in'));
+  }
+
+  // Project filter
+  const chips = document.querySelectorAll('.chip');
+  const projects = document.querySelectorAll('.proj');
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+    const f = chip.dataset.filter;
+    projects.forEach(p => p.classList.toggle('hidden', f !== 'all' && p.dataset.cat !== f));
+  }));
+</script>
+</body>
+</html>
