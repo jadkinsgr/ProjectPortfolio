@@ -28,7 +28,7 @@ I turn raw, fragmented healthcare data into scalable, secure cloud systems that 
 
 ```
 2026 — Present   🏥  Business Intelligence · Deaconess Health System
-2025 — Present   🧠  Co-Founder & Principal Architect · The Data Lab
+2025 — Present   🧠  Founder & Principal Architect · The Data Lab
 2025 — 2026      💳  Solutions Architect · Cedar
 2025             ☁️  Solutions Architect & Data Engineer · Nordic Global
 2023 — 2025      🔧  Data Engineering Consultant · Tegria
