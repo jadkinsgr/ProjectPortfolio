@@ -1,0 +1,149 @@
+{
+  "name": "Josh Adkins",
+  "title": "Solution Architect & Data Engineer",
+  "contact": {
+    "location": "Grand Rapids, MI",
+    "email": "business.joshadkins@gmail.com",
+    "links": [
+      { "label": "linkedin.com/in/joshua-t-adkins", "url": "https://www.linkedin.com/in/joshua-t-adkins/" },
+      { "label": "github.com/jadkinsgr", "url": "https://github.com/jadkinsgr" },
+      { "label": "jadkinsgr.github.io/ProjectPortfolio", "url": "https://jadkinsgr.github.io/ProjectPortfolio/" }
+    ]
+  },
+  "stats": [
+    { "value": "10+", "label": "Years in data" },
+    { "value": "$1M+", "label": "Revenue unlocked" },
+    { "value": "95%", "label": "Provider PSAT" }
+  ],
+  "summary": "Solution architect and data engineer with 10+ years in enterprise healthcare data. I turn raw, fragmented healthcare data into scalable, secure cloud systems that power better decisions and real financial impact, with experience spanning Cerner, Epic, and modern lakehouse platforms (Databricks, Snowflake, Azure, AWS).",
+  "skills": [
+    { "label": "Cloud & Data Platforms", "items": ["Databricks", "Azure Synapse", "Azure Data Factory", "Azure Key Vault", "AWS Redshift", "AWS S3", "Apache Spark", "Snowflake", "DBT"] },
+    { "label": "Languages", "items": ["MS/Oracle SQL", "T-SQL", "Python", "PySpark", "R", "Go", "Scala", "SnowSQL"] },
+    { "label": "Tools & Virtualization", "items": ["Docker", "Tableau", "Power BI", "Alteryx", "Azure DevOps", "Jira", "Informatica", "SSIS", "Hadoop", "Denodo", "QlikView"] },
+    { "label": "Domains", "items": ["Solution Architecture", "Data Modeling", "Data Governance", "CI/CD", "ML & AI Integration", "SAFe Agile", "Data Mining", "Payer Data"] }
+  ],
+  "experience": [
+    {
+      "role": "Business Intelligence",
+      "org": "Deaconess Health System",
+      "location": "Evansville, IN",
+      "dates": "Apr 2026 – Present",
+      "bullets": [
+        "Partner with quality and clinical stakeholders to drive performance across HEDIS, CMS Star Ratings, Joint Commission, Leapfrog and HCAHPS.",
+        "Advise a legacy-to-cloud data modernization effort built to scale with the organization."
+      ]
+    },
+    {
+      "role": "Co-Founder & Principal Architect",
+      "org": "The Data Lab",
+      "location": "Grand Rapids, MI",
+      "dates": "Feb 2025 – Present",
+      "bullets": [
+        "Run an advisory venture helping teams make smarter decisions about data, from modern cloud architecture to healthcare analytics strategy.",
+        "Guide partners through complex problems with clear thinking and pragmatic design."
+      ]
+    },
+    {
+      "role": "Solutions Architect",
+      "org": "Cedar",
+      "location": "New York City, NY",
+      "dates": "Jun 2025 – Feb 2026",
+      "bullets": [
+        "Designed scalable, secure architectures integrating enterprise healthcare clients with Cedar Pay, Pre and Cover.",
+        "Simplified billing complexity and streamlined revenue cycle operations while ensuring seamless interoperability with EHRs and legacy systems."
+      ]
+    },
+    {
+      "role": "Solutions Architect & Data Engineer",
+      "org": "Nordic Global",
+      "location": "Madison, WI",
+      "dates": "Feb 2025 – May 2025",
+      "bullets": [
+        "Led the design and implementation of cloud-native data pipelines and warehouse architectures for structured and unstructured data.",
+        "Aligned data strategy with business goals and enforced governance, validation and quality frameworks."
+      ]
+    },
+    {
+      "role": "Data Engineering Consultant",
+      "org": "Tegria",
+      "location": "Seattle, WA",
+      "dates": "Dec 2023 – Feb 2025",
+      "bullets": [
+        "Built scalable, cloud-native data solutions that helped healthcare organizations modernize their analytics infrastructure.",
+        "Delivered robust pipelines and cloud migrations optimized for performance and cost.",
+        "Implemented governance frameworks that maintained data integrity and compliance."
+      ]
+    },
+    {
+      "role": "Senior Analytics Director",
+      "org": "Health Catalyst",
+      "location": "Salt Lake City, UT",
+      "dates": "Aug 2021 – Dec 2023",
+      "bullets": [
+        "Promoted from Senior Analytics Engineer to lead a team of consulting analysts.",
+        "Translated executive objectives into analytics strategy using Tableau, Alteryx and Power BI.",
+        "Integrated Databricks, Spark and Azure, and championed SAFe Agile delivery."
+      ]
+    },
+    {
+      "role": "Senior Application Developer",
+      "org": "Corewell Health",
+      "location": "Grand Rapids, MI",
+      "dates": "Jul 2016 – Aug 2021",
+      "bullets": [
+        "Advanced through four progressively senior roles on the data warehousing team.",
+        "Built HIPAA-compliant pipelines and integration frameworks.",
+        "Worked extensively with Cerner EMR and the Epic Nexus transition, and supported enterprise-scale system acquisitions."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "client": "Clearview · Clearway · Consensus",
+      "title": "Unified billing platform integration",
+      "text": "Led multiple CedarPay implementations across enterprise healthcare organizations, building a reusable Athena-based code-generation framework that cut developer effort by hundreds of hours and timelines by up to 50%.",
+      "result": "$700K–$1M+ annualized · 93–95%+ PSAT"
+    },
+    {
+      "client": "Geisinger Health",
+      "title": "Cloud-native AWS data platform",
+      "text": "Designed and built a streaming-enabled AWS platform integrating siloed healthcare data sources into a scalable architecture, improving real-time analytics and business intelligence.",
+      "result": "Real-time streaming analytics"
+    },
+    {
+      "client": "Bon Secours Mercy Health",
+      "title": "Population health data migration",
+      "text": "Led population-health initiatives streamlining payer and community-program data into Databricks on Azure, improving accessibility and supporting actionable insights.",
+      "result": "Databricks on Azure"
+    },
+    {
+      "client": "Baylor, Scott & White",
+      "title": "Data modernization strategy",
+      "text": "Centralized pharmacy, medicine and ordering data in Snowflake and DBT, driving cost, adherence and dispensing-trend analysis.",
+      "result": "Snowflake + DBT"
+    },
+    {
+      "client": "St. Luke's University Health",
+      "title": "Large-scale cloud migration",
+      "text": "Executed a large-scale migration of on-premise systems to Azure-based infrastructure, enhancing scalability, security and real-time analytics across the network.",
+      "result": "On-prem to Azure"
+    },
+    {
+      "client": "Innovative Healthcare of Indiana",
+      "title": "Quality metrics enhancement",
+      "text": "Built data pipelines and reporting frameworks to track and improve HEDIS, CMS Star Ratings, Joint Commission, Leapfrog and HCAHPS measures, driving higher hospital ratings, stronger patient satisfaction and improved reimbursement.",
+      "result": "HEDIS · CMS Stars · HCAHPS"
+    }
+  ],
+  "certifications": [
+    { "issuer": "Databricks", "items": ["Azure Databricks Platform Architect", "Generative AI", "Lakehouse"] },
+    { "issuer": "Epic", "items": ["Cogito", "Caboodle Data Model", "Clinical Data Model", "Clarity Data Model", "Caboodle Development", "Caboodle-Clarity Development"] },
+    { "issuer": "Health Catalyst", "items": ["Analytics Engineer III", "Healthcare Operations", "Subject Area Marts", "IDEA", "Atlas"] },
+    { "issuer": "Snowflake", "items": ["Hands-On Essentials: Data Warehouse"] },
+    { "issuer": "ClickUp", "items": ["Project Management (Novice & Intermediate)"] }
+  ],
+  "education": [
+    { "school": "Davenport University", "degree": "M.B.A., Strategic Healthcare & Business Management", "dates": "2015 – 2018" },
+    { "school": "Grand Valley State University", "degree": "B.S., Molecular Biology & Biostatistics", "dates": "2011 – 2014" }
+  ]
+}
