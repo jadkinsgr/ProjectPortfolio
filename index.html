@@ -6,7 +6,7 @@
 <title>Josh Adkins - Solution Architect &amp; Data Engineer</title>
 <meta name="description" content="Josh Adkins - Solution Architect &amp; Data Engineer specializing in healthcare data.">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2308080c'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='%23a78bfa'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23070c11'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='%231ed760'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jadkinsgr.github.io/ProjectPortfolio/">
@@ -22,61 +22,169 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<noscript><style>[data-reveal],[data-reveal-item]{opacity:1!important;transform:none!important;}</style></noscript>
 <style>
+  :root {
+    --bg: #070c11;
+    --fg: #e7ecef;
+    --primary: #1ed760;
+    --primary-rgb: 30,215,96;
+    --primary-light: #6EE7A0;
+    --primary-pale: #CFFFE0;
+    --lime: #C4F135;
+    --lime-rgb: 196,241,53;
+    --on-primary: #06110f;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+  }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: #08080c; color: #e9e9f2; font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  ::selection { background: rgba(167,139,250,0.35); color: #fff; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: rgba(var(--primary-rgb),0.35); color: #fff; }
   *, *::before, *::after { box-sizing: border-box; }
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: #08080c; }
-  ::-webkit-scrollbar-thumb { background: #26263a; border-radius: 8px; }
-  ::-webkit-scrollbar-thumb:hover { background: #a78bfa; }
+  ::-webkit-scrollbar-track { background: #070c11; }
+  ::-webkit-scrollbar-thumb { background: #1c2b33; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
   @keyframes floaty { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-14px); } }
-  @keyframes pulseRing { 0%{ box-shadow: 0 0 0 0 rgba(167,139,250,0.45); } 70%{ box-shadow: 0 0 0 26px rgba(167,139,250,0); } 100%{ box-shadow: 0 0 0 0 rgba(167,139,250,0); } }
+  @keyframes pulseRing { 0%{ box-shadow: 0 0 0 0 rgba(var(--primary-rgb),0.45); } 70%{ box-shadow: 0 0 0 26px rgba(var(--primary-rgb),0); } 100%{ box-shadow: 0 0 0 0 rgba(var(--primary-rgb),0); } }
   @keyframes spinRing { to { transform: rotate(360deg); } }
-  @keyframes flow { 0%{ background-position: 0% 0; } 100%{ background-position: -200% 0; } }
-  @keyframes nodeGlow { 0%,100%{ transform: scale(1); box-shadow: 0 0 16px 2px rgba(167,139,250,0.35); } 50%{ transform: scale(1.12); box-shadow: 0 0 28px 6px rgba(167,139,250,0.6); } }
   @keyframes shimmer { to { background-position: 200% center; } }
+  @keyframes nodeWave { 0%,22%,100%{ transform: scale(1); box-shadow: 0 0 12px 1px rgba(var(--primary-rgb),0.25); } 5%{ transform: scale(1.12); box-shadow: 0 0 28px 6px rgba(var(--primary-rgb),0.65); } }
+  @keyframes packet { 0%{ left: 0; opacity: 0; } 3%{ opacity: 1; } 14%{ left: calc(100% - 8px); opacity: 1; } 18%,100%{ left: calc(100% - 8px); opacity: 0; } }
 
-  a.nav-link { color: #b5b5c8; text-decoration: none; font-size: 14px; padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
+  /* Pipeline */
+  .pipe-row { display: flex; align-items: flex-start; justify-content: center; gap: 0; flex-wrap: nowrap; }
+  .pipe-step { flex: 0 1 150px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .pipe-node { width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: var(--primary-pale); background: radial-gradient(circle at 30% 25%, rgba(var(--primary-rgb),0.28), rgba(var(--primary-rgb),0.06)); border: 1px solid rgba(var(--primary-rgb),0.35); animation: nodeWave 4s ease-in-out infinite; flex: none; }
+  .pipe-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #eaeef0; }
+  .pipe-desc { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #79878d; margin-top: 4px; line-height: 1.4; }
+  .pipe-link { flex: 1 1 24px; min-width: 14px; max-width: 70px; height: 2px; margin-top: 26px; position: relative; background: rgba(var(--primary-rgb),0.18); border-radius: 2px; }
+  .pipe-packet { position: absolute; top: -3px; left: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 10px 3px rgba(var(--primary-rgb),0.7), -14px 0 12px -2px rgba(var(--primary-rgb),0.5); opacity: 0; animation: packet 4s ease-in-out infinite; }
+  .pipe-arrow { position: absolute; right: -1px; top: -4px; width: 8px; height: 8px; border-top: 2px solid rgba(var(--primary-rgb),0.7); border-right: 2px solid rgba(var(--primary-rgb),0.7); transform: rotate(45deg); }
+  @media (max-width: 560px) {
+    .pipe-step { flex: 0 0 auto; width: 44px; gap: 8px; overflow: visible; }
+    .pipe-node { width: 40px; height: 40px; border-radius: 12px; font-size: 15px; }
+    .pipe-title { font-size: 11.5px; }
+    .pipe-desc { display: none; }
+    .pipe-link { margin-top: 19px; min-width: 8px; }
+    .pipe-packet { width: 6px; height: 6px; top: -2px; }
+    .pipe-arrow { width: 6px; height: 6px; top: -3px; }
+  }
+
+  /* Nav + buttons */
+  a.nav-link { color: #a9b6bd; text-decoration: none; font-size: 14px; padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
   a.nav-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
-  a.nav-cta { color: #0a0a10; text-decoration: none; font-size: 14px; font-weight: 600; padding: 9px 18px; border-radius: 999px; background: linear-gradient(135deg, #c4b5fd, #a78bfa); box-shadow: 0 6px 22px rgba(167,139,250,0.4); transition: transform .2s, box-shadow .2s; margin-left: 10px; }
-  a.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(167,139,250,0.6); }
-  a.btn-primary { display: inline-flex; align-items: center; gap: 9px; padding: 14px 26px; border-radius: 999px; background: linear-gradient(135deg, #c4b5fd, #a78bfa); color: #0a0a10; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 8px 30px rgba(167,139,250,0.4); transition: transform .2s, box-shadow .2s; }
-  a.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(167,139,250,0.6); }
-  a.btn-secondary { display: inline-flex; align-items: center; gap: 9px; padding: 14px 26px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #e9e9f2; text-decoration: none; font-weight: 500; font-size: 15px; backdrop-filter: blur(8px); transition: background .2s, border-color .2s; }
-  a.btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(167,139,250,0.4); }
-  .job-card { border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)); backdrop-filter: blur(10px); padding: 22px 26px; transition: transform .25s, border-color .25s, box-shadow .25s; }
-  .job-card:hover { transform: translateY(-3px); border-color: rgba(167,139,250,0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-  .work-card { border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)); backdrop-filter: blur(12px); padding: 30px; transition: transform .25s, border-color .25s, box-shadow .25s; overflow: hidden; position: relative; }
-  .work-card:hover { transform: translateY(-4px); border-color: rgba(167,139,250,0.4); box-shadow: 0 26px 60px rgba(0,0,0,0.45); }
-  .skill-chip { padding: 7px 13px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.025); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #c2c2d2; transition: color .2s, border-color .2s, background .2s; }
-  .skill-chip:hover { color: #fff; border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.1); }
-  a.contact-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #c2c2d2; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: color .2s, border-color .2s, background .2s; }
-  a.contact-chip:hover { color: #fff; border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.1); }
+  a.nav-cta { color: #06110f; text-decoration: none; font-size: 14px; font-weight: 600; padding: 9px 18px; border-radius: 999px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); box-shadow: 0 6px 22px rgba(var(--primary-rgb),0.4); transition: transform .2s, box-shadow .2s; margin-left: 10px; }
+  a.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(var(--primary-rgb),0.6); }
+  a.btn-primary { display: inline-flex; align-items: center; gap: 9px; padding: 14px 26px; border-radius: 999px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); color: #06110f; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 8px 30px rgba(var(--primary-rgb),0.4); transition: transform .2s, box-shadow .2s; }
+  a.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(var(--primary-rgb),0.6); }
+  a.btn-secondary { display: inline-flex; align-items: center; gap: 9px; padding: 14px 26px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #e7ecef; text-decoration: none; font-weight: 500; font-size: 15px; backdrop-filter: blur(8px); transition: background .2s, border-color .2s; }
+  a.btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(var(--primary-rgb),0.4); }
 
-  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+  /* Cards + chips */
+  .glass { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)); backdrop-filter: blur(12px); }
+  .job-card { border-radius: 18px; padding: 22px 26px; transition: transform .25s, border-color .25s, box-shadow .25s; }
+  .job-card:hover { transform: translateY(-3px); border-color: rgba(var(--primary-rgb),0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .work-card { border-radius: 20px; padding: 30px; transition: transform .25s, border-color .25s, box-shadow .25s; overflow: hidden; position: relative; }
+  .work-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--lime)); opacity: 0.5; transition: opacity .25s; }
+  .work-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb),0.4); box-shadow: 0 26px 60px rgba(0,0,0,0.45); }
+  .work-card:hover::before { opacity: 1; }
+  .work-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(var(--lime-rgb),0.08); border: 1px solid rgba(var(--lime-rgb),0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--lime); margin-bottom: 18px; }
+  .work-result { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: var(--primary-light); }
+  .panel { border-radius: 20px; padding: 26px 28px; }
+  .panel-sm { border-radius: 18px; padding: 24px; }
+  .panel-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #eaeef0; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .panel-title::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+  .skill-chip { padding: 7px 13px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.025); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #b7c2c7; transition: color .2s, border-color .2s, background .2s; }
+  .skill-chip:hover { color: #fff; border-color: rgba(var(--primary-rgb),0.45); background: rgba(var(--primary-rgb),0.1); }
+  .pill { padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #cdd6da; transition: border-color .2s, background .2s; }
+  .pill:hover { border-color: rgba(var(--primary-rgb),0.4); background: rgba(var(--primary-rgb),0.08); }
+  a.contact-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #cdd6da; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; transition: color .2s, border-color .2s, background .2s; }
+  a.contact-chip:hover { color: #fff; border-color: rgba(var(--primary-rgb),0.45); background: rgba(var(--primary-rgb),0.1); }
+  .cert-list { display: flex; flex-direction: column; gap: 11px; }
+  .cert-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #a9b6bd; line-height: 1.4; }
+  .cert-item::before { content: '✦'; color: var(--lime); font-size: 12px; margin-top: 2px; }
+  .cert-head { display: inline-flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: var(--primary-light); margin-bottom: 16px; letter-spacing: 0.01em; text-decoration: none; }
+  .cert-head .ext { font-size: 12px; color: var(--lime); }
+
+  /* Type */
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--primary-light); margin-bottom: 14px; }
+  .h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.02em; margin: 0 0 46px; color: #f4f7f8; }
+  .stat-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(24px, 3vw, 34px); color: #f4f7f8; letter-spacing: -0.02em; }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: #85959c; margin-top: 3px; }
+  .grad-text { background: linear-gradient(100deg, var(--primary-light), var(--primary) 40%, var(--lime) 75%, var(--primary-light)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
+
+  /* Reveal */
+  [data-reveal] { opacity: 0; transform: translateY(28px); }
+  [data-reveal].reveal-fallback { transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+  .hero-word { display: inline-block; overflow: hidden; vertical-align: top; }
+  .hero-word > span { display: inline-block; will-change: transform; }
+  .magnetic { will-change: transform; }
+
+  nav { transition: background .3s ease, border-color .3s ease, box-shadow .3s ease; }
+  nav.is-scrolled { background: rgba(7,12,17,0.86) !important; border-bottom-color: rgba(255,255,255,0.1) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  section[id] { scroll-margin-top: 90px; }
+  nav .nav-link { position: relative; }
+  nav .nav-link.is-active { color: #fff; }
+  #nav-indicator { position: absolute; bottom: 4px; left: 0; height: 2px; width: 0; border-radius: 2px; background: linear-gradient(90deg, var(--primary-light), var(--lime)); opacity: 0; pointer-events: none; }
+  .nav-links { position: relative; display: flex; align-items: center; gap: 4px; }
+
+  a.nav-link:focus-visible, a.nav-cta:focus-visible, a.btn-primary:focus-visible, a.btn-secondary:focus-visible,
+  a.contact-chip:focus-visible, .cert-head:focus-visible, #nav-toggle:focus-visible, a[href="#top"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary);
+  }
+
+  #nav-toggle { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); cursor: pointer; padding: 0; }
+  #nav-toggle span, #nav-toggle span::before, #nav-toggle span::after { display: block; width: 18px; height: 2px; background: #e7ecef; border-radius: 2px; position: relative; transition: transform .25s, opacity .25s; }
+  #nav-toggle span::before, #nav-toggle span::after { content: ''; position: absolute; left: 0; }
+  #nav-toggle span::before { top: -6px; }
+  #nav-toggle span::after { top: 6px; }
+  #nav-toggle[aria-expanded="true"] span { background: transparent; }
+  #nav-toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+  #nav-toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
 
   @media (max-width: 900px) {
     header.hero { grid-template-columns: 1fr !important; }
     .grid-2 { grid-template-columns: 1fr !important; }
-    .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
-    nav .nav-links { display: none !important; }
+    #nav-toggle { display: inline-flex; }
+    #nav-indicator { display: none; }
+    nav .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch;
+      gap: 2px; padding: 10px clamp(20px, 5vw, 64px) 18px; background: rgba(7,12,17,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(14px);
+      max-height: 0; overflow: hidden; opacity: 0; transition: max-height .3s ease, opacity .3s ease;
+    }
+    nav .nav-links.is-open { max-height: 360px; opacity: 1; }
+    nav .nav-links a.nav-link { padding: 12px 8px; font-size: 15px; }
+    nav .nav-links a.nav-cta { margin: 8px 0 0; text-align: center; justify-content: center; }
   }
 </style>
 </head>
 <body>
 <div style="position: relative; min-height: 100vh;">
 
-  <canvas id="net" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
-  <div style="position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(60% 50% at 78% 8%, rgba(124,108,240,0.18), transparent 70%), radial-gradient(50% 45% at 8% 60%, rgba(110,231,240,0.07), transparent 70%), radial-gradient(70% 60% at 50% 120%, rgba(167,139,250,0.10), transparent 70%);"></div>
+  <canvas id="net" aria-hidden="true" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
+  <div aria-hidden="true" style="position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(60% 50% at 78% 8%, rgba(var(--primary-rgb),0.16), transparent 70%), radial-gradient(50% 45% at 8% 60%, rgba(var(--lime-rgb),0.08), transparent 70%), radial-gradient(70% 60% at 50% 120%, rgba(var(--primary-rgb),0.09), transparent 70%);"></div>
 
-  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 64px); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(8,8,12,0.55); border-bottom: 1px solid rgba(255,255,255,0.06);">
+  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 64px); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(7,12,17,0.6); border-bottom: 1px solid rgba(255,255,255,0.06);">
     <a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff;">
+      <img src="img/josh.png" alt="" width="36" height="36" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; display: block; border: 1px solid rgba(var(--primary-rgb),0.5); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.35);">
       <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.01em; font-size: 16px;">Josh Adkins</span>
     </a>
-    <div class="nav-links" style="display: flex; align-items: center; gap: 4px;">
+    <button id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-links" aria-label="Toggle navigation menu">
+      <span></span>
+    </button>
+    <div id="primary-nav-links" class="nav-links">
+      <span id="nav-indicator" aria-hidden="true"></span>
       <a href="#about" class="nav-link">About</a>
       <a href="#experience" class="nav-link">Experience</a>
       <a href="#work" class="nav-link">Work</a>
@@ -85,78 +193,45 @@
     </div>
   </nav>
 
-  <header id="top" class="hero" style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 168px clamp(20px, 5vw, 64px) 40px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: center; min-height: 92vh;">
+  <header id="top" class="hero" style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 168px clamp(20px, 5vw, 64px) 40px; display: grid; align-items: center; min-height: 92vh;">
     <div>
-      <div style="display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(167,139,250,0.3); background: rgba(167,139,250,0.08); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: #c4b5fd; margin-bottom: 26px;">
+      <div id="hero-badge" style="display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(var(--primary-rgb),0.3); background: rgba(var(--primary-rgb),0.08); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--primary-light); margin-bottom: 26px;">
         <span style="width: 7px; height: 7px; border-radius: 50%; background: #7dd87d; box-shadow: 0 0 10px #7dd87d;"></span>
         CLINICAL DATA ANALYTICS &amp; FUNCTIONAL INSIGHTS
       </div>
-      <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(44px, 6.4vw, 82px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 22px; color: #f6f6fb;">
-        Certified<br>data <span style="background: linear-gradient(100deg, #c4b5fd, #a78bfa 40%, #6ee7f0 75%, #c4b5fd); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite;">wizard.</span> <span style="font-size: 0.7em;">✦</span>
+      <h1 id="hero-title" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(44px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 22px; color: #f4f7f8;">
+        <span class="hero-word"><span>Certified</span></span><br><span class="hero-word"><span>data</span></span> <span class="hero-word"><span class="grad-text">wizard.</span></span> <span class="hero-word"><span style="font-size: 0.7em; color: var(--lime);">✦</span></span>
       </h1>
-      <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #a6a6ba; max-width: 540px; margin: 0 0 34px;">
+      <p id="hero-desc" style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #a3b0b6; max-width: 700px; margin: 0 0 34px;">
         Solution architect &amp; data engineer turning raw, fragmented healthcare data into scalable, secure cloud systems that power better decisions - and real financial impact.
       </p>
-      <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 46px;">
-        <a href="#work" class="btn-primary">See my work →</a>
-        <a href="#contact" class="btn-secondary">Let's talk</a>
-        <a href="https://drive.google.com/uc?export=download&id=1J3tDztySq00b_xaomn4RdI4RWZ5zkvM0" target="_blank" rel="noopener" class="btn-secondary">Download résumé ↓</a>
+      <div id="hero-ctas" style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 46px;">
+        <a href="#work" class="btn-primary magnetic">See my work →</a>
+        <a href="#contact" class="btn-secondary magnetic">Let's talk</a>
+        <a href="https://drive.google.com/uc?export=download&id=1J3tDztySq00b_xaomn4RdI4RWZ5zkvM0" target="_blank" rel="noopener" class="btn-secondary magnetic">Download résumé ↓</a>
       </div>
-      <div style="display: flex; gap: clamp(20px, 4vw, 44px); flex-wrap: wrap;">
-        <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(24px, 3vw, 34px); color: #f6f6fb; letter-spacing: -0.02em;">10+</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: #8a8a9e; margin-top: 3px;">YEARS IN DATA</div></div>
-        <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(24px, 3vw, 34px); color: #f6f6fb; letter-spacing: -0.02em;">$1M+</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: #8a8a9e; margin-top: 3px;">REVENUE UNLOCKED</div></div>
-        <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(24px, 3vw, 34px); color: #f6f6fb; letter-spacing: -0.02em;">95%</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: #8a8a9e; margin-top: 3px;">PROVIDER PSAT</div></div>
-      </div>
-    </div>
-
-    <div style="position: relative; display: grid; place-items: center;">
-      <div style="position: relative; width: clamp(240px, 26vw, 330px); aspect-ratio: 1; animation: floaty 7s ease-in-out infinite;">
-        <div style="position: absolute; inset: -14px; border-radius: 50%; background: conic-gradient(from 0deg, transparent, rgba(167,139,250,0.7), rgba(110,231,240,0.5), transparent 65%); animation: spinRing 9s linear infinite; filter: blur(2px);"></div>
-        <div style="position: absolute; inset: 0; border-radius: 50%; animation: pulseRing 3.6s ease-out infinite;"></div>
-        <div style="position: absolute; inset: 4px; border-radius: 50%; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); background: #0d0d16;">
-          <img src="img/josh.png" alt="Josh Adkins" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
+      <div id="hero-stats" style="display: flex; gap: clamp(20px, 4vw, 44px); flex-wrap: wrap;">
+        <div><div class="stat-val stat-num" data-count-to="10" data-suffix="+">0</div><div class="stat-label">YEARS IN DATA</div></div>
+        <div><div class="stat-val stat-num" data-count-to="1" data-prefix="$" data-suffix="M+">0</div><div class="stat-label">REVENUE UNLOCKED</div></div>
+        <div><div class="stat-val stat-num" data-count-to="95" data-suffix="%">0</div><div class="stat-label">PROVIDER PSAT</div></div>
       </div>
     </div>
   </header>
 
   <section data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 30px clamp(20px, 5vw, 64px) 70px;">
-    <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012)); backdrop-filter: blur(12px); padding: 30px clamp(20px, 4vw, 46px) 36px; box-shadow: 0 30px 80px rgba(0,0,0,0.35);">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #8a8a9e; margin-bottom: 6px;">// HOW DATA MOVES THROUGH MY SYSTEMS</div>
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(20px, 2.4vw, 27px); color: #f0f0f7; margin-bottom: 30px; letter-spacing: -0.01em;">From fragmented sources to decision-ready insight.</div>
-      <div style="display: flex; align-items: flex-start; justify-content: center; gap: 8px; flex-wrap: wrap; row-gap: 34px;">
-        <div style="flex: 0 1 140px; min-width: 128px; max-width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative;">
-          <div style="width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #d6ccff; background: radial-gradient(circle at 30% 25%, rgba(167,139,250,0.28), rgba(167,139,250,0.06)); border: 1px solid rgba(167,139,250,0.35); animation: nodeGlow 3.4s ease-in-out infinite; animation-delay: 0s;">1</div>
-          <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #ededf5;">Sources</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #7a7a8e; margin-top: 4px; line-height: 1.4;">EHR · Cerner · Epic · APIs</div></div>
-        </div>
-        <div style="flex: 0 0 28px; align-self: flex-start; margin-top: 26px; height: 3px; border-radius: 3px; position: relative; overflow: visible; background-image: linear-gradient(90deg, rgba(167,139,250,0.15), rgba(167,139,250,0.15));">
-          <div style="position: absolute; inset: 0; border-radius: 3px; background-image: linear-gradient(90deg, transparent, #a78bfa, #6ee7f0, transparent); background-size: 200% 100%; animation: flow 1.6s linear infinite;"></div>
-        </div>
-        <div style="flex: 0 1 140px; min-width: 128px; max-width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative;">
-          <div style="width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #d6ccff; background: radial-gradient(circle at 30% 25%, rgba(167,139,250,0.28), rgba(167,139,250,0.06)); border: 1px solid rgba(167,139,250,0.35); animation: nodeGlow 3.4s ease-in-out infinite; animation-delay: 0.4s;">2</div>
-          <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #ededf5;">Ingest</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #7a7a8e; margin-top: 4px; line-height: 1.4;">ADF · S3 · ADLS Gen 2</div></div>
-        </div>
-        <div style="flex: 0 0 28px; align-self: flex-start; margin-top: 26px; height: 3px; border-radius: 3px; position: relative; overflow: visible; background-image: linear-gradient(90deg, rgba(167,139,250,0.15), rgba(167,139,250,0.15));">
-          <div style="position: absolute; inset: 0; border-radius: 3px; background-image: linear-gradient(90deg, transparent, #a78bfa, #6ee7f0, transparent); background-size: 200% 100%; animation: flow 1.6s linear infinite;"></div>
-        </div>
-        <div style="flex: 0 1 140px; min-width: 128px; max-width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative;">
-          <div style="width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #d6ccff; background: radial-gradient(circle at 30% 25%, rgba(167,139,250,0.28), rgba(167,139,250,0.06)); border: 1px solid rgba(167,139,250,0.35); animation: nodeGlow 3.4s ease-in-out infinite; animation-delay: 0.8s;">3</div>
-          <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #ededf5;">Transform</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #7a7a8e; margin-top: 4px; line-height: 1.4;">Databricks · Spark · PySpark · DBT</div></div>
-        </div>
-        <div style="flex: 0 0 28px; align-self: flex-start; margin-top: 26px; height: 3px; border-radius: 3px; position: relative; overflow: visible; background-image: linear-gradient(90deg, rgba(167,139,250,0.15), rgba(167,139,250,0.15));">
-          <div style="position: absolute; inset: 0; border-radius: 3px; background-image: linear-gradient(90deg, transparent, #a78bfa, #6ee7f0, transparent); background-size: 200% 100%; animation: flow 1.6s linear infinite;"></div>
-        </div>
-        <div style="flex: 0 1 140px; min-width: 128px; max-width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative;">
-          <div style="width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #d6ccff; background: radial-gradient(circle at 30% 25%, rgba(167,139,250,0.28), rgba(167,139,250,0.06)); border: 1px solid rgba(167,139,250,0.35); animation: nodeGlow 3.4s ease-in-out infinite; animation-delay: 1.2s;">4</div>
-          <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #ededf5;">Lakehouse</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #7a7a8e; margin-top: 4px; line-height: 1.4;">Databricks · Snowflake</div></div>
-        </div>
-        <div style="flex: 0 0 28px; align-self: flex-start; margin-top: 26px; height: 3px; border-radius: 3px; position: relative; overflow: visible; background-image: linear-gradient(90deg, rgba(167,139,250,0.15), rgba(167,139,250,0.15));">
-          <div style="position: absolute; inset: 0; border-radius: 3px; background-image: linear-gradient(90deg, transparent, #a78bfa, #6ee7f0, transparent); background-size: 200% 100%; animation: flow 1.6s linear infinite;"></div>
-        </div>
-        <div style="flex: 0 1 140px; min-width: 128px; max-width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative;">
-          <div style="width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #d6ccff; background: radial-gradient(circle at 30% 25%, rgba(167,139,250,0.28), rgba(167,139,250,0.06)); border: 1px solid rgba(167,139,250,0.35); animation: nodeGlow 3.4s ease-in-out infinite; animation-delay: 1.6s;">5</div>
-          <div><div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #ededf5;">Insight</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #7a7a8e; margin-top: 4px; line-height: 1.4;">Tableau · Power BI</div></div>
-        </div>
+    <div class="glass" style="border-radius: 22px; padding: 30px clamp(20px, 4vw, 46px) 36px; box-shadow: 0 30px 80px rgba(0,0,0,0.35);">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #85959c; margin-bottom: 6px;">// HOW DATA MOVES THROUGH MY SYSTEMS</div>
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(20px, 2.4vw, 27px); color: #eef2f3; margin-bottom: 30px; letter-spacing: -0.01em;">From fragmented sources to decision-ready insight.</div>
+      <div id="pipeline-row" class="pipe-row">
+        <div class="pipe-step"><div class="pipe-node" style="animation-delay: 0.0s;">1</div><div class="pipe-label"><div class="pipe-title">Sources</div><div class="pipe-desc">EHR · Cerner · Epic · APIs</div></div></div>
+        <div class="pipe-link" aria-hidden="true"><span class="pipe-packet" style="animation-delay: 0.15s;"></span><span class="pipe-arrow"></span></div>
+        <div class="pipe-step"><div class="pipe-node" style="animation-delay: 0.8s;">2</div><div class="pipe-label"><div class="pipe-title">Ingest</div><div class="pipe-desc">ADF · S3 · ADLS Gen 2</div></div></div>
+        <div class="pipe-link" aria-hidden="true"><span class="pipe-packet" style="animation-delay: 0.95s;"></span><span class="pipe-arrow"></span></div>
+        <div class="pipe-step"><div class="pipe-node" style="animation-delay: 1.6s;">3</div><div class="pipe-label"><div class="pipe-title">Transform</div><div class="pipe-desc">Databricks · Spark · PySpark · DBT</div></div></div>
+        <div class="pipe-link" aria-hidden="true"><span class="pipe-packet" style="animation-delay: 1.75s;"></span><span class="pipe-arrow"></span></div>
+        <div class="pipe-step"><div class="pipe-node" style="animation-delay: 2.4s;">4</div><div class="pipe-label"><div class="pipe-title">Lakehouse</div><div class="pipe-desc">Databricks · Snowflake</div></div></div>
+        <div class="pipe-link" aria-hidden="true"><span class="pipe-packet" style="animation-delay: 2.55s;"></span><span class="pipe-arrow"></span></div>
+        <div class="pipe-step"><div class="pipe-node" style="animation-delay: 3.2s;">5</div><div class="pipe-label"><div class="pipe-title">Insight</div><div class="pipe-desc">Tableau · Power BI</div></div></div>
       </div>
     </div>
   </section>
@@ -164,267 +239,266 @@
   <section id="about" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
     <div class="grid-2" style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(30px, 6vw, 80px); align-items: start;">
       <div>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">01 - ABOUT</div>
-        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.05; letter-spacing: -0.02em; margin: 0; color: #f4f4fb;">A data wizard who ships pragmatic architecture.</h2>
+        <div class="eyebrow">01 - ABOUT</div>
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.05; letter-spacing: -0.02em; margin: 0; color: #f4f7f8;">A data wizard who ships pragmatic architecture.</h2>
       </div>
       <div>
-        <p style="font-size: clamp(16px, 1.4vw, 19px); line-height: 1.7; color: #b0b0c2; margin: 0 0 22px;">
+        <p style="font-size: clamp(16px, 1.4vw, 19px); line-height: 1.7; color: #b4c0c6; margin: 0 0 22px;">
           I transform raw data into actionable insight. With deep expertise in SQL, Python, Databricks, Azure Synapse, Docker and a broad cloud toolkit, I architect scalable data solutions that power business growth.
         </p>
-        <p style="font-size: clamp(15px, 1.3vw, 17px); line-height: 1.7; color: #9494a8; margin: 0 0 30px;">
+        <p style="font-size: clamp(15px, 1.3vw, 17px); line-height: 1.7; color: #96a4ab; margin: 0 0 30px;">
           I specialize in streamlining ETL pipelines, centralizing fragmented data sources, optimizing big-data workflows, and implementing CI/CD automation - with a decade spent almost entirely inside complex healthcare systems, from Cerner and Epic to modern lakehouse platforms.
         </p>
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Cloud Data Architecture</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Healthcare Data & Analytics</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Data Governance & Security</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">CI/CD & DevOps for Data</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Big Data & Spark Optimization</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Machine Learning & AI Integration</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Real-Time Data Processing</span>
-          <span style="padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); font-size: 13.5px; color: #c7c7d6;">Technical Leadership & Strategy</span>
+          <span class="pill">Cloud Data Architecture</span>
+          <span class="pill">Healthcare Data &amp; Analytics</span>
+          <span class="pill">Data Governance &amp; Security</span>
+          <span class="pill">CI/CD &amp; DevOps for Data</span>
+          <span class="pill">Big Data &amp; Spark Optimization</span>
+          <span class="pill">Machine Learning &amp; AI Integration</span>
+          <span class="pill">Real-Time Data Processing</span>
+          <span class="pill">Technical Leadership &amp; Strategy</span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="experience" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">02 - EXPERIENCE</div>
-    <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.02em; margin: 0 0 46px; color: #f4f4fb;">A decade across enterprise healthcare.</h2>
+    <div class="eyebrow">02 - EXPERIENCE</div>
+    <h2 class="h2">A decade across enterprise healthcare.</h2>
     <div style="position: relative; padding-left: 34px; border-left: 1px solid rgba(255,255,255,0.1);">
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Business Intelligence <span style="color: #a78bfa;">· Deaconess Health System</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Apr 2026 - Present</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Business Intelligence <span style="color: var(--primary-light);">· Deaconess Health System</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Apr 2026 - Present</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Evansville, IN</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Partnering with quality and clinical stakeholders to drive performance across HEDIS, CMS Star Ratings, Joint Commission, Leapfrog and HCAHPS - while advising a legacy-to-cloud data modernization effort built to scale with the organization.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Evansville, IN</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Partnering with quality and clinical stakeholders to drive performance across HEDIS, CMS Star Ratings, Joint Commission, Leapfrog and HCAHPS - while advising a legacy-to-cloud data modernization effort built to scale with the organization.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Co-Founder & Principal Architect <span style="color: #a78bfa;">· The Data Lab</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Feb 2025 - Present</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Co-Founder &amp; Principal Architect <span style="color: var(--primary-light);">· The Data Lab</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Feb 2025 - Present</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Grand Rapids, MI</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">An advisory venture helping teams make smarter decisions about data - from modern cloud architecture to healthcare analytics strategy, guiding partners through complex problems with clear thinking and pragmatic design.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Grand Rapids, MI</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">An advisory venture helping teams make smarter decisions about data - from modern cloud architecture to healthcare analytics strategy, guiding partners through complex problems with clear thinking and pragmatic design.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Solutions Architect <span style="color: #a78bfa;">· Cedar</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Jun 2025 - Feb 2026</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Solutions Architect <span style="color: var(--primary-light);">· Cedar</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Jun 2025 - Feb 2026</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">New York City, NY</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Designed scalable, secure architectures integrating enterprise healthcare clients with Cedar Pay, Pre and Cover - simplifying billing complexity, streamlining revenue cycle operations, and ensuring seamless interoperability with EHRs and legacy systems.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">New York City, NY</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Designed scalable, secure architectures integrating enterprise healthcare clients with Cedar Pay, Pre and Cover - simplifying billing complexity, streamlining revenue cycle operations, and ensuring seamless interoperability with EHRs and legacy systems.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Solutions Architect & Data Engineer <span style="color: #a78bfa;">· Nordic Global</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Feb 2025 - May 2025</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Solutions Architect &amp; Data Engineer <span style="color: var(--primary-light);">· Nordic Global</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Feb 2025 - May 2025</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Madison, WI</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Led the design and implementation of cloud-native data pipelines and warehouse architectures for structured and unstructured data, aligning data strategy with business goals and enforcing governance, validation and quality frameworks.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Madison, WI</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Led the design and implementation of cloud-native data pipelines and warehouse architectures for structured and unstructured data, aligning data strategy with business goals and enforcing governance, validation and quality frameworks.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Data Engineering Consultant <span style="color: #a78bfa;">· Tegria</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Dec 2023 - Feb 2025</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Data Engineering Consultant <span style="color: var(--primary-light);">· Tegria</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Dec 2023 - Feb 2025</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Seattle, WA</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Built scalable, cloud-native data solutions helping healthcare organizations modernize their analytics infrastructure - robust pipelines, cloud migrations optimized for performance and cost, and governance frameworks that maintained integrity and compliance.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Seattle, WA</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Built scalable, cloud-native data solutions helping healthcare organizations modernize their analytics infrastructure - robust pipelines, cloud migrations optimized for performance and cost, and governance frameworks that maintained integrity and compliance.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Senior Analytics Director <span style="color: #a78bfa;">· Health Catalyst</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Aug 2021 - Dec 2023</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Senior Analytics Director <span style="color: var(--primary-light);">· Health Catalyst</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Aug 2021 - Dec 2023</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Salt Lake City, UT</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Promoted from Senior Analytics Engineer to lead a team of consulting analysts. Translated executive objectives into analytics strategy using Tableau, Alteryx and Power BI, integrating Databricks, Spark and Azure, and championing SAFe Agile delivery.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Salt Lake City, UT</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Promoted from Senior Analytics Engineer to lead a team of consulting analysts. Translated executive objectives into analytics strategy using Tableau, Alteryx and Power BI, integrating Databricks, Spark and Azure, and championing SAFe Agile delivery.</p>
         </div>
       </div>
       <div data-reveal style="position: relative; margin-bottom: 26px;">
-        <div style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #c4b5fd, #a78bfa); border: 3px solid #08080c; box-shadow: 0 0 14px rgba(167,139,250,0.7);"></div>
-        <div class="job-card">
+        <div class="tl-dot" style="position: absolute; left: -42px; top: 26px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary)); border: 3px solid var(--bg); box-shadow: 0 0 14px rgba(var(--primary-rgb),0.7);"></div>
+        <div class="job-card glass">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #f2f2f9;">Senior Application Developer <span style="color: #a78bfa;">· Corewell Health</span></div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">Jul 2016 - Aug 2021</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: #eef2f3;">Senior Application Developer <span style="color: var(--primary-light);">· Corewell Health</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">Jul 2016 - Aug 2021</div>
           </div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #7a7a8e; margin-bottom: 12px;">Grand Rapids, MI</div>
-          <p style="font-size: 15px; line-height: 1.6; color: #a4a4b6; margin: 0;">Advanced through four progressively senior roles on the data warehousing team. Built HIPAA-compliant pipelines and integration frameworks, worked extensively with Cerner EMR and the Epic Nexus transition, and supported enterprise-scale system acquisitions.</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #79878d; margin-bottom: 12px;">Grand Rapids, MI</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #a3b0b6; margin: 0;">Advanced through four progressively senior roles on the data warehousing team. Built HIPAA-compliant pipelines and integration frameworks, worked extensively with Cerner EMR and the Epic Nexus transition, and supported enterprise-scale system acquisitions.</p>
         </div>
       </div>
     </div>
   </section>
 
-
   <section id="work" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">03 - SELECTED WORK</div>
-    <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.02em; margin: 0 0 46px; color: #f4f4fb;">Some Recent Career Highlights</h2>
+    <div class="eyebrow">03 - SELECTED WORK</div>
+    <h2 class="h2">Some Recent Career Highlights</h2>
     <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">Clearview · Clearway · Consensus</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Unified billing platform integration</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Led multiple CedarPay implementations across enterprise healthcare orgs, building a reusable Athena-based code-generation framework that cut developer effort by hundreds of hours and timelines by up to 50%.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">$700K–$1M+ annualized · 93–95%+ PSAT</div>
+      <div class="work-card glass">
+        <div class="work-tag">Clearview · Clearway · Consensus</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Unified billing platform integration</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Led multiple CedarPay implementations across enterprise healthcare orgs, building a reusable Athena-based code-generation framework that cut developer effort by hundreds of hours and timelines by up to 50%.</p>
+        <div class="work-result">$700K–$1M+ annualized · 93–95%+ PSAT</div>
       </div>
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">Geisinger Health</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Cloud-native AWS data platform</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Designed and built a streaming-enabled AWS platform integrating siloed healthcare data sources into a scalable architecture, dramatically improving real-time analytics and business intelligence.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">Real-time streaming analytics</div>
+      <div class="work-card glass">
+        <div class="work-tag">Geisinger Health</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Cloud-native AWS data platform</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Designed and built a streaming-enabled AWS platform integrating siloed healthcare data sources into a scalable architecture, dramatically improving real-time analytics and business intelligence.</p>
+        <div class="work-result">Real-time streaming analytics</div>
       </div>
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">Bon Secours Mercy Health</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Population health data migration</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Led population-health initiatives streamlining payer and community-program data into Databricks on Azure, enhancing accessibility and supporting actionable insights for stakeholders.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">Databricks on Azure</div>
+      <div class="work-card glass">
+        <div class="work-tag">Bon Secours Mercy Health</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Population health data migration</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Led population-health initiatives streamlining payer and community-program data into Databricks on Azure, enhancing accessibility and supporting actionable insights for stakeholders.</p>
+        <div class="work-result">Databricks on Azure</div>
       </div>
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">Baylor, Scott & White</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Data modernization strategy</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Centralized pharmacy, medicine and ordering data in Snowflake and DBT, driving cost, adherence and dispensing-trend analysis to support clinical and financial decision-making.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">Snowflake + DBT</div>
+      <div class="work-card glass">
+        <div class="work-tag">Baylor, Scott &amp; White</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Data modernization strategy</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Centralized pharmacy, medicine and ordering data in Snowflake and DBT, driving cost, adherence and dispensing-trend analysis to support clinical and financial decision-making.</p>
+        <div class="work-result">Snowflake + DBT</div>
       </div>
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">St. Luke's University Health</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Large-scale cloud migration</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Executed a large-scale migration of on-premise systems to Azure-based infrastructure, enhancing scalability, security and real-time analytics capabilities across the network.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">On-prem → Azure</div>
+      <div class="work-card glass">
+        <div class="work-tag">St. Luke's University Health</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Large-scale cloud migration</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Executed a large-scale migration of on-premise systems to Azure-based infrastructure, enhancing scalability, security and real-time analytics capabilities across the network.</p>
+        <div class="work-result">On-prem → Azure</div>
       </div>
-      <div class="work-card">
-        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(110,231,240,0.1); border: 1px solid rgba(110,231,240,0.25); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8fecf5; margin-bottom: 18px;">Innovative Healthcare of Indiana</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #f2f2f9;">Quality metrics enhancement</h3>
-        <p style="font-size: 14.5px; line-height: 1.6; color: #a2a2b4; margin: 0 0 18px;">Built data pipelines and reporting frameworks to track and improve core quality measures - HEDIS, CMS Star Ratings, Joint Commission and Leapfrog standards, and HCAHPS - driving higher hospital ratings, stronger patient satisfaction and improved reimbursement rates.</p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: #c4b5fd;">HEDIS · CMS Stars · HCAHPS</div>
+      <div class="work-card glass">
+        <div class="work-tag">Innovative Healthcare of Indiana</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 0 0 12px; color: #eef2f3;">Quality metrics enhancement</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #a3b0b6; margin: 0 0 18px;">Built data pipelines and reporting frameworks to track and improve core quality measures - HEDIS, CMS Star Ratings, Joint Commission and Leapfrog standards, and HCAHPS - driving higher hospital ratings, stronger patient satisfaction and improved reimbursement rates.</p>
+        <div class="work-result">HEDIS · CMS Stars · HCAHPS</div>
       </div>
     </div>
   </section>
 
   <section id="skills" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">04 - TECH STACK</div>
-    <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.02em; margin: 0 0 46px; color: #f4f4fb;">The tools I build with.</h2>
+    <div class="eyebrow">04 - TECH STACK</div>
+    <h2 class="h2">The tools I build with.</h2>
     <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 26px 28px;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #ededf5; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 2px; background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>Cloud & Data Platforms</div>
+      <div class="panel glass">
+        <div class="panel-title">Cloud &amp; Data Platforms</div>
         <div style="display: flex; flex-wrap: wrap; gap: 9px;">
           <span class="skill-chip">Databricks</span><span class="skill-chip">Azure Synapse</span><span class="skill-chip">Azure Data Factory</span><span class="skill-chip">Azure Keyvault</span><span class="skill-chip">AWS RedShift</span><span class="skill-chip">AWS S3</span><span class="skill-chip">Apache Spark</span><span class="skill-chip">Snowflake</span><span class="skill-chip">DBT</span>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 26px 28px;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #ededf5; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 2px; background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>Languages</div>
+      <div class="panel glass">
+        <div class="panel-title">Languages</div>
         <div style="display: flex; flex-wrap: wrap; gap: 9px;">
           <span class="skill-chip">MS/Oracle SQL</span><span class="skill-chip">T-SQL</span><span class="skill-chip">Python</span><span class="skill-chip">PySpark</span><span class="skill-chip">R</span><span class="skill-chip">Go</span><span class="skill-chip">Scala</span><span class="skill-chip">SnowSQL</span>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 26px 28px;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #ededf5; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 2px; background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>Tools & Virtualization</div>
+      <div class="panel glass">
+        <div class="panel-title">Tools &amp; Virtualization</div>
         <div style="display: flex; flex-wrap: wrap; gap: 9px;">
           <span class="skill-chip">Docker</span><span class="skill-chip">Tableau</span><span class="skill-chip">Power BI</span><span class="skill-chip">Alteryx</span><span class="skill-chip">Azure DevOps</span><span class="skill-chip">Jira</span><span class="skill-chip">Informatica</span><span class="skill-chip">SSIS</span><span class="skill-chip">Hadoop</span><span class="skill-chip">Denodo</span><span class="skill-chip">Qlik View</span>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 26px 28px;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #ededf5; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 2px; background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>Domains</div>
+      <div class="panel glass">
+        <div class="panel-title">Domains</div>
         <div style="display: flex; flex-wrap: wrap; gap: 9px;">
-          <span class="skill-chip">Solution Architecture</span><span class="skill-chip">Data Modeling</span><span class="skill-chip">Data Governance</span><span class="skill-chip">CI/CD</span><span class="skill-chip">ML & AI Integration</span><span class="skill-chip">SAFe Agile</span><span class="skill-chip">Data Mining</span><span class="skill-chip">Payer Data</span>
+          <span class="skill-chip">Solution Architecture</span><span class="skill-chip">Data Modeling</span><span class="skill-chip">Data Governance</span><span class="skill-chip">CI/CD</span><span class="skill-chip">ML &amp; AI Integration</span><span class="skill-chip">SAFe Agile</span><span class="skill-chip">Data Mining</span><span class="skill-chip">Payer Data</span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="certs" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">05 - CERTIFICATIONS</div>
-    <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.02em; margin: 0 0 46px; color: #f4f4fb;">Certified where it counts.</h2>
+    <div class="eyebrow">05 - CERTIFICATIONS</div>
+    <h2 class="h2">Certified where it counts.</h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;">
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 24px;">
-        <a href="https://credentials.databricks.com/profile/joshtadkins/wallet" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: #c4b5fd; margin-bottom: 16px; letter-spacing: 0.01em; text-decoration: none;">Databricks <span style="font-size: 12px; color: #8fecf5;">↗</span></a>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Azure Databricks Platform Architect</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Generative AI</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Databricks Lakehouse</div>
+      <div class="panel-sm glass">
+        <a href="https://credentials.databricks.com/profile/joshtadkins/wallet" target="_blank" rel="noopener" class="cert-head">Databricks <span class="ext">↗</span></a>
+        <div class="cert-list">
+          <div class="cert-item">Azure Databricks Platform Architect</div>
+          <div class="cert-item">Generative AI</div>
+          <div class="cert-item">Databricks Lakehouse</div>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 24px;">
-        <a href="https://glow-pillow-fa3.notion.site/Epic-Certifications-19d34a903bb780b385a0e4384e988af5?pvs=4" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: #c4b5fd; margin-bottom: 16px; letter-spacing: 0.01em; text-decoration: none;">Epic <span style="font-size: 12px; color: #8fecf5;">↗</span></a>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Cogito</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Caboodle Data Model</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Clinical Data Model</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Clarity Data Model</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Caboodle Development</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Caboodle-Clarity Development</div>
+      <div class="panel-sm glass">
+        <a href="https://glow-pillow-fa3.notion.site/Epic-Certifications-19d34a903bb780b385a0e4384e988af5?pvs=4" target="_blank" rel="noopener" class="cert-head">Epic <span class="ext">↗</span></a>
+        <div class="cert-list">
+          <div class="cert-item">Cogito</div>
+          <div class="cert-item">Caboodle Data Model</div>
+          <div class="cert-item">Clinical Data Model</div>
+          <div class="cert-item">Clarity Data Model</div>
+          <div class="cert-item">Caboodle Development</div>
+          <div class="cert-item">Caboodle-Clarity Development</div>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 24px;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: #c4b5fd; margin-bottom: 16px; letter-spacing: 0.01em;">Health Catalyst</div>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Analytics Engineer III</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Healthcare Operations</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Subject Area Marts</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>IDEA</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Atlas</div>
+      <div class="panel-sm glass">
+        <div class="cert-head">Health Catalyst</div>
+        <div class="cert-list">
+          <div class="cert-item">Analytics Engineer III</div>
+          <div class="cert-item">Healthcare Operations</div>
+          <div class="cert-item">Subject Area Marts</div>
+          <div class="cert-item">IDEA</div>
+          <div class="cert-item">Atlas</div>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 24px;">
-        <a href="https://www.credly.com/badges/46daa661-9d65-4247-b8f2-895947b699d0/linked_in_profile" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: #c4b5fd; margin-bottom: 16px; letter-spacing: 0.01em; text-decoration: none;">Snowflake <span style="font-size: 12px; color: #8fecf5;">↗</span></a>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Hands-On Essentials - Data Warehouse</div>
+      <div class="panel-sm glass">
+        <a href="https://www.credly.com/badges/46daa661-9d65-4247-b8f2-895947b699d0/linked_in_profile" target="_blank" rel="noopener" class="cert-head">Snowflake <span class="ext">↗</span></a>
+        <div class="cert-list">
+          <div class="cert-item">Hands-On Essentials - Data Warehouse</div>
         </div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 24px;">
-        <a href="https://verify.skilljar.com/c/o3ry4rm7vnks" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: #c4b5fd; margin-bottom: 16px; letter-spacing: 0.01em; text-decoration: none;">ClickUp <span style="font-size: 12px; color: #8fecf5;">↗</span></a>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Project Management - Novice</div>
-          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #adadbf; line-height: 1.4;"><span style="color: #6ee7f0; font-size: 12px; margin-top: 2px;">✦</span>Project Management - Intermediate</div>
+      <div class="panel-sm glass">
+        <a href="https://verify.skilljar.com/c/o3ry4rm7vnks" target="_blank" rel="noopener" class="cert-head">ClickUp <span class="ext">↗</span></a>
+        <div class="cert-list">
+          <div class="cert-item">Project Management - Novice</div>
+          <div class="cert-item">Project Management - Intermediate</div>
         </div>
       </div>
     </div>
   </section>
 
   <section id="education" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 14px;">06 - EDUCATION</div>
+    <div class="eyebrow">06 - EDUCATION</div>
     <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 28px 30px;">
+      <div class="glass" style="border-radius: 18px; padding: 28px 30px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px;">
-          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; color: #f2f2f9;">Davenport University</div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">2015 - 2018</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; color: #eef2f3;">Davenport University</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">2015 - 2018</div>
         </div>
-        <div style="font-size: 15px; color: #c4b5fd; margin-bottom: 6px;">M.B.A.</div>
-        <div style="font-size: 13.5px; color: #8f8fa2; line-height: 1.5;">Strategic Healthcare & Business Management focus.</div>
+        <div style="font-size: 15px; color: var(--primary-light); margin-bottom: 6px;">M.B.A.</div>
+        <div style="font-size: 13.5px; color: #8f9ea5; line-height: 1.5;">Strategic Healthcare &amp; Business Management focus.</div>
       </div>
-      <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); padding: 28px 30px;">
+      <div class="glass" style="border-radius: 18px; padding: 28px 30px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px;">
-          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; color: #f2f2f9;">Grand Valley State University</div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a9e; white-space: nowrap;">2011 - 2014</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; color: #eef2f3;">Grand Valley State University</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #85959c; white-space: nowrap;">2011 - 2014</div>
         </div>
-        <div style="font-size: 15px; color: #c4b5fd; margin-bottom: 6px;">Molecular Biology & Biostatistics</div>
-        <div style="font-size: 13.5px; color: #8f8fa2; line-height: 1.5;">Foundations in statistical analysis and life sciences.</div>
+        <div style="font-size: 15px; color: var(--primary-light); margin-bottom: 6px;">Molecular Biology &amp; Biostatistics</div>
+        <div style="font-size: 13.5px; color: #8f9ea5; line-height: 1.5;">Foundations in statistical analysis and life sciences.</div>
       </div>
     </div>
   </section>
 
   <section id="contact" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 70px clamp(20px, 5vw, 64px) 40px;">
-    <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 26px; background: linear-gradient(150deg, rgba(167,139,250,0.14), rgba(110,231,240,0.05) 60%, rgba(255,255,255,0.02)); backdrop-filter: blur(14px); padding: clamp(36px, 6vw, 72px); text-align: center; overflow: hidden; position: relative;">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #c4b5fd; margin-bottom: 16px;">07 - LET'S BUILD</div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 60px); letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 20px; color: #f7f7fc;">Have messy data?<br>Let's turn it into insight.</h2>
-      <p style="font-size: 17px; color: #b6b6c8; max-width: 520px; margin: 0 auto 36px; line-height: 1.6;">Based in Grand Rapids, MI - working with healthcare and enterprise teams anywhere.</p>
+    <div style="border: 1px solid rgba(var(--primary-rgb),0.22); border-radius: 26px; background: linear-gradient(150deg, rgba(var(--primary-rgb),0.12), rgba(var(--lime-rgb),0.04) 60%, rgba(255,255,255,0.02)); backdrop-filter: blur(14px); padding: clamp(36px, 6vw, 72px); text-align: center; overflow: hidden; position: relative;">
+      <div class="eyebrow" style="margin-bottom: 16px;">07 - LET'S BUILD</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 60px); letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 20px; color: #f4f7f8;">Have messy data?<br>Let's turn it into insight.</h2>
+      <p style="font-size: 17px; color: #b4c0c6; max-width: 520px; margin: 0 auto 36px; line-height: 1.6;">Based in Grand Rapids, MI - working with healthcare and enterprise teams anywhere.</p>
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 34px;">
-        <a href="mailto:business.joshadkins@gmail.com" class="btn-primary">Email me →</a>
+        <a href="mailto:business.joshadkins@gmail.com" class="btn-primary magnetic">Email me →</a>
         <a href="tel:+12316709588" class="btn-secondary">231.670.9588</a>
         <a href="https://cal.com/josh-adkins/30min?overlayCalendar=true" target="_blank" rel="noopener" class="btn-secondary">Book a call ↗</a>
         <a href="https://drive.google.com/uc?export=download&id=1J3tDztySq00b_xaomn4RdI4RWZ5zkvM0" target="_blank" rel="noopener" class="btn-secondary">Download résumé ↓</a>
@@ -437,86 +511,260 @@
         <a href="https://api.badgr.io/public/collections/399de2d75904a1b7315ac02786661192" target="_blank" rel="noopener" class="contact-chip">Badgr</a>
       </div>
     </div>
-    <div style="text-align: center; padding: 40px 0 20px; color: #6a6a7c; font-family: 'JetBrains Mono', monospace; font-size: 12px;">© 2026 Josh Adkins · Solution Architect &amp; Data Engineer · Grand Rapids, MI</div>
   </section>
+
+  <footer style="position: relative; z-index: 1; border-top: 1px solid rgba(255,255,255,0.06); padding: 26px clamp(20px, 5vw, 64px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6d7d84;">© <span id="year">2026</span> Josh Adkins</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6d7d84;">Solution Architect &amp; Data Engineer · Grand Rapids, MI</span>
+  </footer>
 
 </div>
 
 <script>
-(function() {
-  var canvas = document.getElementById('net');
-  var ctx = canvas.getContext('2d');
-  var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var mouse = { x: -9999, y: -9999 };
-  var nodes = [];
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  function build() {
-    W = window.innerWidth; H = window.innerHeight;
-    canvas.width = W * DPR; canvas.height = H * DPR;
-    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    var count = Math.min(120, Math.max(48, Math.round((W * H) / 16000)));
-    nodes = [];
-    for (var i = 0; i < count; i++) {
-      nodes.push({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.7
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('primary-nav-links');
+  navToggle.addEventListener('click', () => {
+    const open = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!open));
+    navLinks.classList.toggle('is-open', !open);
+  });
+  navLinks.addEventListener('click', (e) => {
+    if (e.target.closest('a')) {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navLinks.classList.remove('is-open');
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navLinks.classList.remove('is-open');
+      navToggle.focus();
+    }
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const siteNav = document.querySelector('nav');
+
+  function statText(el, v) {
+    return (el.dataset.prefix || '') + v + (el.dataset.suffix || '');
+  }
+
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- Smooth scroll (Lenis) ---
+    if (!reduceMotion && window.Lenis) {
+      const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    // --- Nav: scrolled state + scrollspy ---
+    const navAnchors = Array.from(document.querySelectorAll('.nav-link'));
+    const navIndicator = document.getElementById('nav-indicator');
+    const spySections = Array.from(document.querySelectorAll('section[id]'));
+    let activeHref = null;
+
+    function positionIndicator() {
+      if (window.innerWidth <= 900) { navIndicator.style.opacity = 0; return; }
+      const activeLink = navAnchors.find(a => a.classList.contains('is-active'));
+      if (!activeLink) { navIndicator.style.opacity = 0; return; }
+      const linkRect = activeLink.getBoundingClientRect();
+      const parentRect = navLinks.getBoundingClientRect();
+      const left = linkRect.left - parentRect.left + 14;
+      const width = Math.max(linkRect.width - 28, 0);
+      gsap.to(navIndicator, { x: left, width, opacity: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
+    }
+    function setActiveSection(href) {
+      if (href === activeHref) return;
+      activeHref = href;
+      navAnchors.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === href));
+      positionIndicator();
+    }
+    function updateNavState() {
+      siteNav.classList.toggle('is-scrolled', (window.scrollY || window.pageYOffset) > 80);
+      let current = null;
+      for (const sec of spySections) {
+        if (sec.getBoundingClientRect().top - 140 <= 0) current = sec; else break;
+      }
+      // Sections without a nav link (certs, education) keep the last linked section active.
+      const href = current ? '#' + current.id : null;
+      if (href && navAnchors.some(a => a.getAttribute('href') === href)) setActiveSection(href);
+      else if (!current) setActiveSection(null);
+    }
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    window.addEventListener('resize', positionIndicator);
+    updateNavState();
+
+    // --- Scroll reveals ---
+    gsap.utils.toArray('[data-reveal]').forEach((el) => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
+      });
+    });
+    ['.work-card', '.skill-chip', '.cert-item'].forEach((sel) => {
+      const groups = new Map();
+      gsap.utils.toArray(sel).forEach((el) => {
+        const parent = el.closest('section') || el.parentElement;
+        if (!groups.has(parent)) groups.set(parent, []);
+        groups.get(parent).push(el);
+      });
+      groups.forEach((items, parent) => {
+        gsap.set(items, { opacity: 0, y: 24 });
+        gsap.to(items, {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.06,
+          scrollTrigger: { trigger: parent, start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+      });
+    });
+    const pipelineItems = gsap.utils.toArray('#pipeline-row > .pipe-step');
+    if (pipelineItems.length) {
+      gsap.set(pipelineItems, { opacity: 0, y: 18 });
+      gsap.to(pipelineItems, {
+        opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.07,
+        scrollTrigger: { trigger: '#pipeline-row', start: 'top 85%', toggleActions: 'play none none reverse' }
       });
     }
-  }
-  window.addEventListener('resize', build);
-  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
-  build();
 
-  var LINK = 132, LINKM = 172;
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-      var dmx = n.x - mouse.x, dmy = n.y - mouse.y;
-      var dm = Math.hypot(dmx, dmy);
-      if (dm < 140) { n.x += (dmx / dm) * 0.6; n.y += (dmy / dm) * 0.6; }
+    // --- Animated stat counters ---
+    gsap.utils.toArray('.stat-num').forEach((el) => {
+      const target = parseFloat(el.dataset.countTo);
+      const counter = { val: 0 };
+      el.textContent = statText(el, 0);
+      ScrollTrigger.create({
+        trigger: el, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(counter, {
+          val: target, duration: 1.4, ease: 'power2.out',
+          onUpdate: () => { el.textContent = statText(el, Math.round(counter.val)); }
+        })
+      });
+    });
+
+    // --- Hero entrance ---
+    const heroFade = ['#hero-badge', '#hero-desc', '#hero-ctas', '#hero-stats'];
+    if (reduceMotion) {
+      gsap.set('.hero-word > span', { yPercent: 0 });
+      gsap.set(heroFade, { opacity: 1, y: 0, clearProps: 'transform' });
+    } else {
+      gsap.set('.hero-word > span', { yPercent: 110 });
+      gsap.set(heroFade, { opacity: 0, y: 18 });
+      const tl = gsap.timeline({ delay: 0.15, defaults: { ease: 'expo.out' } });
+      tl.to('#hero-badge', { opacity: 1, y: 0, duration: 0.6 })
+        .to('.hero-word > span', { yPercent: 0, duration: 0.8, stagger: 0.06 }, '-=0.35')
+        .to('#hero-desc', { opacity: 1, y: 0, duration: 0.6 }, '-=0.45')
+        .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6 }, '-=0.45')
+        .to('#hero-stats', { opacity: 1, y: 0, duration: 0.6 }, '-=0.45');
     }
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var a = nodes[i], b = nodes[j];
-        var d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < LINK) {
-          ctx.strokeStyle = 'rgba(167,139,250,' + (0.16 * (1 - d / LINK)).toFixed(3) + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+    // --- Magnetic buttons ---
+    if (!reduceMotion) {
+      document.querySelectorAll('.magnetic').forEach((btn) => {
+        const setX = gsap.quickTo(btn, 'x', { duration: 0.35, ease: 'power3' });
+        const setY = gsap.quickTo(btn, 'y', { duration: 0.35, ease: 'power3' });
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect();
+          setX((e.clientX - r.left - r.width / 2) * 0.25);
+          setY((e.clientY - r.top - r.height / 2) * 0.4);
+        });
+        btn.addEventListener('mouseleave', () => { setX(0); setY(0); });
+      });
+    }
+  } else {
+    // Fallback if CDN scripts fail to load.
+    const els = document.querySelectorAll('[data-reveal]');
+    els.forEach(el => el.classList.add('reveal-fallback'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+    document.querySelectorAll('.stat-num').forEach(el => { el.textContent = statText(el, el.dataset.countTo); });
+
+    const navAnchorsFallback = Array.from(document.querySelectorAll('.nav-link'));
+    const spySectionsFallback = Array.from(document.querySelectorAll('section[id]'));
+    window.addEventListener('scroll', () => {
+      siteNav.classList.toggle('is-scrolled', window.scrollY > 80);
+      let current = null;
+      for (const sec of spySectionsFallback) {
+        if (sec.getBoundingClientRect().top - 140 <= 0) current = sec; else break;
+      }
+      navAnchorsFallback.forEach(a => a.classList.toggle('is-active', !!current && a.getAttribute('href') === '#' + current.id));
+    }, { passive: true });
+  }
+
+  // --- Background network canvas ---
+  const canvas = document.getElementById('net');
+  const ctx = canvas.getContext('2d');
+  let w, h, points;
+  const mouse = { x: -9999, y: -9999, active: false };
+  const REACT_RADIUS = 160;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  function initPoints() {
+    const count = Math.min(60, Math.floor((w * h) / 22000));
+    points = Array.from({ length: count }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3
+    }));
+  }
+  function tick() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of points) {
+      if (mouse.active) {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REACT_RADIUS && dist > 0.01) {
+          const force = ((REACT_RADIUS - dist) / REACT_RADIUS) * 0.025;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
         }
       }
-      var dm2 = Math.hypot(nodes[i].x - mouse.x, nodes[i].y - mouse.y);
-      if (dm2 < LINKM) {
-        ctx.strokeStyle = 'rgba(110,231,240,' + (0.28 * (1 - dm2 / LINKM)).toFixed(3) + ')';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      p.x += p.vx; p.y += p.vy;
+      const speed = Math.hypot(p.vx, p.vy);
+      const maxSpeed = 0.9;
+      if (speed > maxSpeed) { p.vx = (p.vx / speed) * maxSpeed; p.vy = (p.vy / speed) * maxSpeed; }
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+    }
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const dx = points[i].x - points[j].x, dy = points[i].y - points[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          ctx.strokeStyle = `rgba(30,215,96,${0.12 * (1 - dist / 140)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(points[j].x, points[j].y); ctx.stroke();
+        }
       }
+      if (mouse.active) {
+        const dx = points[i].x - mouse.x, dy = points[i].y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REACT_RADIUS) {
+          ctx.strokeStyle = `rgba(196,241,53,${0.3 * (1 - dist / REACT_RADIUS)})`;
+          ctx.lineWidth = 1.1;
+          ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = 'rgba(30,215,96,0.35)';
+      ctx.beginPath(); ctx.arc(points[i].x, points[i].y, 1.6, 0, Math.PI * 2); ctx.fill();
     }
-    for (var i = 0; i < nodes.length; i++) {
-      ctx.fillStyle = 'rgba(196,181,253,0.55)';
-      ctx.beginPath(); ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI * 2); ctx.fill();
-    }
-    requestAnimationFrame(draw);
+    requestAnimationFrame(tick);
   }
-  draw();
-
-  var els = document.querySelectorAll('[data-reveal]');
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        io.unobserve(e.target);
-      }
+  window.addEventListener('resize', () => { resize(); initPoints(); });
+  resize(); initPoints();
+  if (!reduceMotion) {
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-  els.forEach(function(el) { io.observe(el); });
-})();
+    document.addEventListener('mouseleave', () => { mouse.active = false; });
+    tick();
+  }
 </script>
+
 </body>
 </html>
