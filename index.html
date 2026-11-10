@@ -78,6 +78,99 @@
     .pipe-arrow { width: 6px; height: 6px; top: -3px; }
   }
 
+  /* Quality console dashboard */
+  .qc { border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
+  .qc-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
+  .qc-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .qc-dots { display: flex; gap: 6px; margin-right: 4px; }
+  .qc-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+  .qc-logo { width: 30px; height: 30px; flex: none; filter: drop-shadow(0 0 8px rgba(var(--primary-rgb),0.35)); }
+  .qc-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #eef2f3; letter-spacing: -0.01em; line-height: 1.2; }
+  .qc-slug { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: #79878d; margin-top: 2px; }
+  .qc-meta { display: flex; align-items: center; gap: 8px; }
+  .qc-chip { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; color: #a9b6bd; padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); white-space: nowrap; }
+  .qc-live { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--primary-light); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(var(--primary-rgb),0.3); background: rgba(var(--primary-rgb),0.08); }
+  .qc-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #7dd87d; box-shadow: 0 0 8px #7dd87d; animation: qcBlink 1.8s ease-in-out infinite; }
+
+  .qc-tiles { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 10px; padding: 16px 20px 6px; }
+  .qc-tile { position: relative; display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 13px 14px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); color: inherit; font: inherit; cursor: pointer; overflow: hidden; transition: border-color .25s, background .25s, transform .25s; }
+  .qc-tile:hover { border-color: rgba(var(--primary-rgb),0.3); transform: translateY(-2px); }
+  .qc-tile:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary); }
+  .qc-tile.is-active { border-color: rgba(var(--primary-rgb),0.5); background: linear-gradient(180deg, rgba(var(--primary-rgb),0.1), rgba(var(--primary-rgb),0.02)); }
+  .qc-tile.is-watch { animation: qcWatch 3.2s ease-in-out infinite; }
+  .qc-tile.is-watch.is-active { border-color: rgba(242,201,76,0.55); background: linear-gradient(180deg, rgba(242,201,76,0.09), rgba(242,201,76,0.015)); }
+  .qc-tile-top { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .qc-sdot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: #7dd87d; box-shadow: 0 0 6px rgba(125,216,125,0.6); }
+  .qc-sdot.watch { background: #f2c94c; box-shadow: 0 0 6px rgba(242,201,76,0.6); }
+  .qc-tile-label { flex: 1 1 auto; min-width: 0; font-size: 12.5px; color: #b7c2c7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qc-better { flex: none; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6d7d84; }
+  .qc-tile-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(22px, 2.1vw, 27px); letter-spacing: -0.02em; color: #f4f7f8; line-height: 1.05; white-space: nowrap; }
+  .qc-tile-val small { font-size: 11.5px; font-weight: 500; color: #85959c; margin-left: 3px; letter-spacing: 0; }
+  .qc-tile-bot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .qc-delta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--primary-light); white-space: nowrap; }
+  .qc-delta.watch { color: #f2c94c; }
+  .qc-tile-bot svg { flex: none; overflow: visible; }
+  .qc-prog { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; transform: scaleX(0); transform-origin: left center; background: linear-gradient(90deg, var(--primary), var(--lime)); opacity: 0; }
+  .qc-tile.is-active .qc-prog { opacity: 0.9; }
+
+  .qc-drill { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 12px; padding: 10px 20px 18px; }
+  .qc-card { min-width: 0; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; background: rgba(4,8,12,0.38); padding: 16px 18px; }
+  .qc-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .qc-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: #eef2f3; }
+  .qc-card-sub { font-size: 13px; color: #85959c; margin-top: 3px; line-height: 1.45; }
+  .qc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .qc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; padding: 4px 8px; border-radius: 999px; color: var(--primary-light); border: 1px solid rgba(var(--primary-rgb),0.25); background: rgba(var(--primary-rgb),0.06); white-space: nowrap; }
+  .qc-tag.lime { color: var(--lime); border-color: rgba(var(--lime-rgb),0.25); background: rgba(var(--lime-rgb),0.06); }
+  .qc-chart { width: 100%; min-height: 260px; }
+  .qc-chart svg { display: block; overflow: visible; }
+  .qc-chart text { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; fill: #6d7d84; letter-spacing: 0.04em; }
+  .qc-chart text.lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; fill: #b7c2c7; letter-spacing: 0; }
+  .qc-chart text.val { fill: #cdd6da; }
+  .qc-chart text.hi { fill: var(--lime); font-weight: 600; }
+  .qc-chart text.warn { fill: #f2c94c; }
+  .qc-chart text.good { fill: var(--primary-light); }
+  .qc-swap { animation: qcFade .55s ease both; }
+
+  .qc-gap { display: flex; flex-direction: column; }
+  .qc-gap-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #85959c; }
+  .qc-gap-big { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1; margin: 12px 0 6px; background: linear-gradient(100deg, var(--primary-light), var(--lime)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .qc-gap.is-watch .qc-gap-big { background: linear-gradient(100deg, #f7dd8a, #f2c94c); -webkit-background-clip: text; background-clip: text; }
+  .qc-gap-label { font-size: 13.5px; line-height: 1.5; color: #a3b0b6; }
+  .qc-gap-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; color: #eef2f3; margin: 18px 0 10px; }
+  .qc-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .qc-steps li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #cdd6da; padding: 9px 11px; border-radius: 11px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
+  .qc-steps li span { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11.5px; color: var(--on-primary); background: linear-gradient(135deg, var(--primary-light), var(--primary)); }
+  .qc-gap-row { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: #79878d; }
+
+  .qc-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 11px 20px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #5b6a70; background: rgba(255,255,255,0.015); }
+
+  .qc-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: qcDraw 1.3s cubic-bezier(.4,.1,.2,1) .1s forwards; }
+  .qc-grow-x { transform-box: fill-box; transform-origin: left center; animation: qcGrowX .9s cubic-bezier(.2,.7,.2,1) both; }
+  .qc-grow-y { transform-box: fill-box; transform-origin: center bottom; animation: qcGrowY .9s cubic-bezier(.2,.7,.2,1) both; }
+  .qc-ping { transform-box: fill-box; transform-origin: center; animation: qcPing 2.6s ease-out infinite; }
+  .qc-band { animation: qcBand 3.4s ease-in-out infinite; }
+  .qc-fade { animation: qcFade .8s ease .5s both; }
+  @keyframes qcDraw { to { stroke-dashoffset: 0; } }
+  @keyframes qcGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes qcGrowY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes qcPing { 0% { transform: scale(0.6); opacity: 0.75; } 80%, 100% { transform: scale(2.8); opacity: 0; } }
+  @keyframes qcBand { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+  @keyframes qcFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes qcBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes qcWatch { 0%, 100% { box-shadow: inset 0 0 0 1px rgba(242,201,76,0.08), 0 0 0 0 rgba(242,201,76,0); } 50% { box-shadow: inset 0 0 0 1px rgba(242,201,76,0.35), 0 0 18px 0 rgba(242,201,76,0.12); } }
+
+  @media (max-width: 1100px) { .qc-tiles { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  @media (max-width: 900px) { .qc-drill { grid-template-columns: 1fr; } .qc-meta .qc-chip { display: none; } }
+  @media (max-width: 560px) {
+    .qc-head { padding: 12px 14px; }
+    .qc-dots { display: none; }
+    .qc-tiles { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; padding: 14px 14px 4px; }
+    .qc-drill { padding: 8px 14px 14px; }
+    .qc-card { padding: 14px; }
+    .qc-foot { padding: 10px 14px; }
+    .qc-hint { display: none; }
+  }
+
   /* Nav + buttons */
   a.nav-link { color: #a9b6bd; text-decoration: none; font-size: 14px; padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
   a.nav-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
@@ -189,6 +282,7 @@
       <a href="#experience" class="nav-link">Experience</a>
       <a href="#work" class="nav-link">Work</a>
       <a href="#skills" class="nav-link">Stack</a>
+      <a href="#console" class="nav-link">Dashboard</a>
       <a href="#contact" class="nav-cta">Get in touch</a>
     </div>
   </nav>
@@ -492,9 +586,56 @@
     </div>
   </section>
 
+  <section id="console" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px clamp(20px, 5vw, 64px);">
+    <div class="eyebrow" style="margin-bottom: 22px;">07 - DASHBOARD</div>
+    <div class="qc" id="qc">
+      <div class="qc-head">
+        <div class="qc-brand">
+          <div class="qc-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          <svg class="qc-logo" viewBox="0 0 120 120" fill="none" role="img" aria-label="The Data Lab logo">
+            <defs><linearGradient id="qcLogoGrad" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6EE7A0"/><stop offset="1" stop-color="#C4F135"/></linearGradient></defs>
+            <g stroke="url(#qcLogoGrad)" stroke-width="7" stroke-linecap="round"><line x1="68" y1="46.1" x2="81.5" y2="22.8"/><line x1="49.9" y1="47.6" x2="39" y2="34.2"/><line x1="75.9" y1="61.3" x2="100" y2="63.3"/><line x1="47.3" y1="69.7" x2="32.4" y2="81.1"/><line x1="61.4" y1="75.9" x2="63.3" y2="98"/></g>
+            <g stroke="url(#qcLogoGrad)" stroke-width="7"><circle cx="60" cy="60" r="16"/><circle cx="86" cy="15" r="9"/><circle cx="34" cy="28" r="8"/><circle cx="108" cy="64" r="8"/><circle cx="26" cy="86" r="8"/><circle cx="64" cy="106" r="8"/></g>
+          </svg>
+          <div style="min-width: 0;">
+            <div class="qc-title">Clinical Quality Command Center</div>
+            <div class="qc-slug">quality-console.ops · Gold layer</div>
+          </div>
+        </div>
+        <div class="qc-meta">
+          <span class="qc-chip">ALL FACILITIES</span>
+          <span class="qc-chip">ROLLING 12 MO</span>
+          <span class="qc-live"><span class="qc-live-dot"></span>LIVE</span>
+        </div>
+      </div>
+
+      <div class="qc-tiles" id="qc-tiles" role="tablist" aria-label="Quality measures"></div>
+
+      <div class="qc-drill" id="qc-panel" role="tabpanel">
+        <div class="qc-card">
+          <div class="qc-card-head">
+            <div style="min-width: 0;">
+              <div class="qc-card-title" id="qc-chart-title"></div>
+              <div class="qc-card-sub" id="qc-chart-sub"></div>
+            </div>
+            <div class="qc-tags" id="qc-tags"></div>
+          </div>
+          <div class="qc-chart" id="qc-chart"></div>
+        </div>
+        <div class="qc-card qc-gap" id="qc-gap" aria-live="polite"></div>
+      </div>
+
+      <div class="qc-foot">
+        <span>// illustrative, not audited figures</span>
+        <span class="qc-hint">auto-cycling · select a measure to drill in</span>
+        <span id="qc-synced">synced 4m ago</span>
+      </div>
+    </div>
+  </section>
+
   <section id="contact" data-reveal style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 70px clamp(20px, 5vw, 64px) 40px;">
     <div style="border: 1px solid rgba(var(--primary-rgb),0.22); border-radius: 26px; background: linear-gradient(150deg, rgba(var(--primary-rgb),0.12), rgba(var(--lime-rgb),0.04) 60%, rgba(255,255,255,0.02)); backdrop-filter: blur(14px); padding: clamp(36px, 6vw, 72px); text-align: center; overflow: hidden; position: relative;">
-      <div class="eyebrow" style="margin-bottom: 16px;">07 - LET'S BUILD</div>
+      <div class="eyebrow" style="margin-bottom: 16px;">08 - LET'S BUILD</div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 60px); letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 20px; color: #f4f7f8;">Have messy data?<br>Let's turn it into insight.</h2>
       <p style="font-size: 17px; color: #b4c0c6; max-width: 520px; margin: 0 auto 36px; line-height: 1.6;">Based in Grand Rapids, MI - working with healthcare and enterprise teams anywhere.</p>
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 34px;">
@@ -693,6 +834,293 @@
       navAnchorsFallback.forEach(a => a.classList.toggle('is-active', !!current && a.getAttribute('href') === '#' + current.id));
     }, { passive: true });
   }
+
+  // --- Clinical quality console (illustrative data) ---
+  (function () {
+    const root = document.getElementById('qc');
+    if (!root) return;
+
+    const MONTHS_12 = [[0, "NOV '25"], [5, "APR '26"], [11, "OCT '26"]];
+    const KPIS = [
+      {
+        id: 'readmit', label: '30-Day Readmissions', short: 'Readmissions', value: '13.2', unit: '%', delta: '−20%', better: 'down', status: 'ok',
+        program: 'CMS HRRP', chartType: 'RUN CHART',
+        title: 'Weekly readmission rate', sub: 'All-cause, 30-day. Discharge outreach started in week 6.',
+        chart: { type: 'run', series: [16.4, 16.8, 16.2, 16.6, 16.5, 16.4, 15.3, 14.7, 14.1, 13.7, 13.4, 13.2], baseline: 16.5, marker: { i: 5, label: 'Outreach starts' }, xLabels: [[0, 'WK 1'], [5, 'WK 6'], [11, 'WK 12']], fmt: (v) => v.toFixed(0) + '%' },
+        gap: { big: '−3.3 pts', label: 'below the 16.5% baseline since the team started finding risk before discharge.', title: 'How we closed it', steps: ['Flag risk at admission', 'Book the follow-up before discharge', 'Track returns every week'], target: 'TARGET ≤ 14.0%', owner: 'Care Management' }
+      },
+      {
+        id: 'sep1', label: 'SEP-1 Sepsis Bundle', short: 'SEP-1 Bundle', value: '61', unit: '%', delta: '+6 pts', better: 'up', status: 'watch',
+        program: 'CMS SEP-1', chartType: 'STEP BREAKDOWN',
+        title: 'Bundle compliance by step', sub: 'One all-or-nothing score hides which step is missing.',
+        spark: [52, 54, 53, 55, 57, 56, 58, 59, 60, 61],
+        chart: { type: 'hbars', rows: [['Lactate', 96], ['Blood cultures', 93], ['Antibiotics', 89], ['Repeat lactate', 74], ['Fluids', 66]], max: 100, target: 90, hi: 4, fmt: (v) => v + '%' },
+        gap: { big: '66%', label: 'Fluids is the weakest step. Closing it moves the bundle more than any other fix.', title: 'Where to focus', steps: ['Split pass/fail by step', 'Find the weakest step', 'Review it every week'], target: 'TARGET ≥ 80%', owner: 'ED + Sepsis Committee' }
+      },
+      {
+        id: 'a1c', label: 'HbA1c Poor Control', short: 'HbA1c > 9%', value: '18.4', unit: '%', delta: '−5.6 pts', better: 'down', status: 'ok',
+        program: 'HEDIS GSD', chartType: 'SPC · P-CHART',
+        title: 'Diabetic patients with HbA1c > 9%', sub: 'On a poor-control measure, a falling rate is the win.',
+        chart: { type: 'spc', series: [24.1, 23.6, 24.8, 23.9, 24.4, 23.2, 24.6, 24.0, 23.7, 24.3, 22.4, 21.8, 21.1, 20.6, 19.9, 19.4, 18.9, 18.4], cl: 24.06, ucl: 25.6, lcl: 22.5, band: [10, 17], bandLabel: 'SHIFT · 8 PTS BELOW CL', flagColor: 'good', xLabels: [[0, "MAY '25"], [9, "FEB '26"], [17, "OCT '26"]], fmt: (v) => v.toFixed(0) + '%' },
+        gap: { big: '8 mo', label: 'below the lower control limit. That is a real process shift, not month-to-month noise.', title: 'What made it stick', steps: ['Label the good direction', 'Store it once in Gold', 'Color by meaning'], target: 'TARGET ≤ 20%', owner: 'Primary Care Quality' }
+      },
+      {
+        id: 'lwbs', label: 'ED Left Without Being Seen', short: 'ED Walkouts', value: '4.4', unit: '%', delta: '3 → 1 defs', better: 'down', status: 'ok',
+        program: 'CMS OP-22', chartType: 'DEFINITION AUDIT',
+        title: 'Walkout rate, by report', sub: 'Same measure, three definitions. Settled once in the Gold layer.',
+        spark: [5.2, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4],
+        chart: { type: 'vbars', bars: [['REPORT A', 3.1], ['REPORT B', 4.4], ['REPORT C', 5.2], ['GOLD', 4.4]], max: 6, fmt: (v) => v.toFixed(1) + '%' },
+        gap: { big: '3 → 1', label: 'reports now share one walkout definition, so every ED dashboard shows 4.4%.', title: 'How we settled it', steps: ['Write one definition', 'Build it once in Gold', 'Point every report at it'], target: 'TARGET ≤ 3.5%', owner: 'Emergency Dept Ops' }
+      },
+      {
+        id: 'falls', label: 'Inpatient Falls', value: '2.1', unit: '/1k days', delta: '−12%', better: 'down', status: 'ok',
+        program: 'NDNQI', chartType: 'RISK FUNNEL',
+        title: 'High-risk patients without a fall plan', sub: 'Join the fall-risk score to the care plan on file.',
+        spark: [2.6, 2.5, 2.7, 2.4, 2.4, 2.3, 2.2, 2.2, 2.1],
+        chart: { type: 'hbars', rows: [['All patients', 1000], ['High fall risk', 220], ['No plan on file', 84]], max: 1000, hi: 2, fmt: (v) => v.toLocaleString() },
+        gap: { big: '84', label: 'high-risk patients have no fall-prevention plan on file right now.', title: 'How to close it', steps: ['Join risk score to events', 'Flag high risk, no plan', 'Track falls with injury'], target: 'TARGET ≤ 2.0 / 1K DAYS', owner: 'Nursing Quality' }
+      },
+      {
+        id: 'clabsi', label: 'CLABSI', value: '0.94', unit: '/1k line days', delta: '1 signal', better: 'down', status: 'watch',
+        program: 'NHSN', chartType: 'SPC · U-CHART',
+        title: 'Central line infections per 1,000 line days', sub: 'One month broke above the upper control limit.',
+        chart: { type: 'spc', series: [0.8, 1.0, 0.7, 0.9, 1.1, 0.8, 0.9, 0.7, 1.0, 0.9, 2.4, 1.0], cl: 0.95, ucl: 2.1, lcl: 0, flags: [10], flagColor: 'warn', flagLabel: 'SPECIAL CAUSE', xLabels: MONTHS_12, fmt: (v) => v.toFixed(1) },
+        gap: { big: 'Sep', label: 'spiked above the upper control limit. Find the cause before it lands in the NHSN submission.', title: 'Next steps', steps: ['Pull line days by unit', 'Audit bundle compliance for Sep', 'Confirm it returns inside limits'], target: 'TARGET SIR < 1.0', owner: 'Infection Prevention' }
+      }
+    ];
+
+    const tilesEl = document.getElementById('qc-tiles');
+    const chartEl = document.getElementById('qc-chart');
+    const gapEl = document.getElementById('qc-gap');
+    const titleEl = document.getElementById('qc-chart-title');
+    const subEl = document.getElementById('qc-chart-sub');
+    const tagsEl = document.getElementById('qc-tags');
+    const GREEN = '#1ed760', GREEN_L = '#6EE7A0', LIME = '#C4F135', AMBER = '#f2c94c', GRID = 'rgba(255,255,255,0.06)';
+
+    const f1 = (n) => (+n).toFixed(1);
+    const path = (pts) => 'M' + pts.map((p) => f1(p[0]) + ',' + f1(p[1])).join(' L');
+    const ping = (x, y, color, r) => `<circle class="qc-ping" cx="${f1(x)}" cy="${f1(y)}" r="${r || 6}" fill="none" stroke="${color}" stroke-width="1.5"/><circle cx="${f1(x)}" cy="${f1(y)}" r="${(r || 6) - 1.5}" fill="${color}" stroke="#070c11" stroke-width="2"/>`;
+    const defs = `<defs>
+      <linearGradient id="qcArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${GREEN}" stop-opacity="0.28"/><stop offset="1" stop-color="${GREEN}" stop-opacity="0"/></linearGradient>
+      <linearGradient id="qcBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${GREEN}"/><stop offset="1" stop-color="${GREEN_L}"/></linearGradient>
+      <linearGradient id="qcBarV" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${GREEN}"/><stop offset="1" stop-color="${GREEN_L}"/></linearGradient>
+      <linearGradient id="qcLime" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${LIME}"/><stop offset="1" stop-color="#a6e22e"/></linearGradient>
+    </defs>`;
+
+    function sparkSvg(series, color) {
+      const w = 64, h = 22, min = Math.min(...series), max = Math.max(...series), span = max - min || 1;
+      const pts = series.map((v, i) => [i * w / (series.length - 1), 2 + (1 - (v - min) / span) * (h - 4)]);
+      const last = pts[pts.length - 1];
+      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none" aria-hidden="true"><path d="${path(pts)}" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${f1(last[0])}" cy="${f1(last[1])}" r="2.4" fill="${color}"/></svg>`;
+    }
+
+    function frame(W, H, P, min, max, ticks, fmt) {
+      ticks = [4, 5, 3, 6, 2].find((t) => Number.isInteger((max - min) / t)) || ticks;
+      const y = (v) => P.t + (1 - (v - min) / (max - min)) * (H - P.t - P.b);
+      let o = '';
+      for (let i = 0; i <= ticks; i++) {
+        const v = min + (max - min) * i / ticks, yy = y(v);
+        o += `<line x1="${P.l}" x2="${W - P.r}" y1="${f1(yy)}" y2="${f1(yy)}" stroke="${GRID}"/>`;
+        o += `<text x="${P.l - 8}" y="${f1(yy + 3.5)}" text-anchor="end">${fmt(v)}</text>`;
+      }
+      return { y, o };
+    }
+
+    function xLabels(labels, x, H, P) {
+      return labels.map(([i, t], k) => `<text x="${f1(x(i))}" y="${H - P.b + 20}" text-anchor="${k === 0 ? 'start' : k === labels.length - 1 ? 'end' : 'middle'}">${t}</text>`).join('');
+    }
+
+    function runChart(c, W, H) {
+      const P = { l: 44, r: 16, t: 30, b: 32 }, s = c.series, n = s.length;
+      const min = Math.floor(Math.min(...s) - 1), max = Math.ceil(Math.max(...s, c.baseline) + 1);
+      const x = (i) => P.l + i * (W - P.l - P.r) / (n - 1);
+      const fr = frame(W, H, P, min, max, 4, c.fmt), y = fr.y;
+      const pts = s.map((v, i) => [x(i), y(v)]);
+      const mx = x(c.marker.i), last = pts[n - 1];
+      const area = path(pts) + ` L${f1(x(n - 1))},${H - P.b} L${f1(x(0))},${H - P.b} Z`;
+      const pillW = c.marker.label.length * 7 + 26;
+      const pillX = Math.min(mx + 8, W - P.r - pillW);
+      return fr.o +
+        `<path class="qc-fade" d="${area}" fill="url(#qcArea)"/>` +
+        `<line x1="${P.l}" x2="${W - P.r}" y1="${f1(y(c.baseline))}" y2="${f1(y(c.baseline))}" stroke="rgba(255,255,255,0.35)" stroke-dasharray="3 5"/>` +
+        `<text x="${W - P.r}" y="${f1(y(c.baseline) - 7)}" text-anchor="end">BASELINE</text>` +
+        `<line x1="${f1(mx)}" x2="${f1(mx)}" y1="${P.t - 6}" y2="${H - P.b}" stroke="${LIME}" stroke-dasharray="4 4" opacity="0.8"/>` +
+        `<g class="qc-fade"><rect x="${f1(pillX)}" y="${P.t - 22}" width="${pillW}" height="20" rx="10" fill="rgba(196,241,53,0.08)" stroke="rgba(196,241,53,0.4)"/><circle cx="${f1(pillX + 11)}" cy="${P.t - 12}" r="3" fill="${LIME}"/><text class="hi" x="${f1(pillX + 20)}" y="${P.t - 8.5}" style="font-weight:500">${c.marker.label}</text></g>` +
+        `<path class="qc-draw" pathLength="1" d="${path(pts)}" stroke="${GREEN_L}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` +
+        `<g class="qc-fade">${ping(last[0], last[1], GREEN, 6)}<text class="good" x="${f1(last[0] - 10)}" y="${f1(last[1] - 12)}" text-anchor="end">${s[n - 1]}%</text></g>` +
+        xLabels(c.xLabels, x, H, P);
+    }
+
+    function spcChart(c, W, H) {
+      const P = { l: 44, r: 62, t: 28, b: 32 }, s = c.series, n = s.length;
+      const pad = (c.ucl - c.lcl) * 0.25;
+      const min = Math.max(0, Math.floor(Math.min(...s, c.lcl) - pad)), max = Math.ceil(Math.max(...s, c.ucl) + pad);
+      const x = (i) => P.l + i * (W - P.l - P.r) / (n - 1);
+      const fr = frame(W, H, P, min, max, 4, c.fmt), y = fr.y;
+      const pts = s.map((v, i) => [x(i), y(v)]);
+      const color = c.flagColor === 'warn' ? AMBER : GREEN;
+      let o = fr.o;
+      if (c.band) {
+        const half = (x(1) - x(0)) / 2, bx = x(c.band[0]) - half, bw = x(c.band[1]) - x(c.band[0]) + half * 2;
+        o += `<rect class="qc-band" x="${f1(bx)}" y="${P.t}" width="${f1(Math.min(bw, W - P.r - bx))}" height="${H - P.t - P.b}" rx="6" fill="rgba(30,215,96,0.07)" stroke="rgba(30,215,96,0.22)" stroke-dasharray="3 4"/>`;
+        o += `<text class="good" x="${f1(bx + 8)}" y="${P.t + 14}">${c.bandLabel}</text>`;
+      }
+      const lim = (v, label, dash) => `<line x1="${P.l}" x2="${W - P.r}" y1="${f1(y(v))}" y2="${f1(y(v))}" stroke="${dash ? 'rgba(242,201,76,0.45)' : 'rgba(255,255,255,0.4)'}" ${dash ? 'stroke-dasharray="5 5"' : ''}/><text class="${dash ? 'warn' : 'val'}" x="${W - P.r + 8}" y="${f1(y(v) + 3.5)}" style="opacity:.8">${label} ${v.toFixed(1)}</text>`;
+      o += lim(c.ucl, 'UCL', true) + lim(c.cl, 'CL', false);
+      if (c.lcl > min) o += lim(c.lcl, 'LCL', true);
+      o += `<path class="qc-draw" pathLength="1" d="${path(pts)}" stroke="rgba(110,231,160,0.75)" stroke-width="2" fill="none" stroke-linejoin="round"/>`;
+      const flagged = new Set(c.flags || []);
+      pts.forEach((p, i) => {
+        const inBand = c.band && i >= c.band[0] && i <= c.band[1];
+        if (flagged.has(i)) return;
+        o += `<circle class="qc-fade" cx="${f1(p[0])}" cy="${f1(p[1])}" r="3.2" fill="${inBand ? GREEN : '#0b1218'}" stroke="${inBand ? GREEN : GREEN_L}" stroke-width="1.6"/>`;
+      });
+      flagged.forEach((i) => {
+        const p = pts[i];
+        o += `<g class="qc-fade">${ping(p[0], p[1], color, 6)}<text class="${c.flagColor}" x="${f1(p[0] - 12)}" y="${f1(p[1] + 4)}" text-anchor="end">${c.flagLabel}</text></g>`;
+      });
+      if (c.band) { const p = pts[n - 1]; o += `<g class="qc-fade">${ping(p[0], p[1], GREEN, 5.5)}</g>`; }
+      return o + xLabels(c.xLabels, x, H, P);
+    }
+
+    function hbarsChart(c, W, H) {
+      const labelW = W < 460 ? 104 : 128, P = { l: labelW, r: 58, t: c.target ? 30 : 16, b: 14 };
+      const n = c.rows.length, rowH = (H - P.t - P.b) / n, barH = Math.min(22, rowH * 0.5);
+      const x = (v) => P.l + (v / c.max) * (W - P.l - P.r);
+      let o = '';
+      if (c.target) {
+        const tx = x(c.target);
+        o += `<line x1="${f1(tx)}" x2="${f1(tx)}" y1="${P.t - 8}" y2="${H - P.b}" stroke="rgba(255,255,255,0.35)" stroke-dasharray="3 4"/><text x="${f1(tx)}" y="${P.t - 14}" text-anchor="middle">STEP GOAL ${c.fmt(c.target)}</text>`;
+      }
+      c.rows.forEach(([label, v], i) => {
+        const cy = P.t + rowH * i + rowH / 2, hi = i === c.hi, bw = x(v) - P.l;
+        o += `<text class="lbl${hi ? ' hi' : ''}" x="0" y="${f1(cy + 4)}">${label}</text>`;
+        o += `<rect x="${P.l}" y="${f1(cy - barH / 2)}" width="${f1(W - P.l - P.r)}" height="${f1(barH)}" rx="${f1(barH / 2)}" fill="rgba(255,255,255,0.05)"/>`;
+        o += `<rect class="qc-grow-x" style="animation-delay:${(i * 0.08).toFixed(2)}s" x="${P.l}" y="${f1(cy - barH / 2)}" width="${f1(bw)}" height="${f1(barH)}" rx="${f1(barH / 2)}" fill="url(#${hi ? 'qcLime' : 'qcBar'})"/>`;
+        o += `<text class="${hi ? 'hi' : 'val'}" x="${W - P.r + 10}" y="${f1(cy + 4)}">${c.fmt(v)}</text>`;
+        if (hi) o += `<g class="qc-fade">${ping(P.l + bw, cy, LIME, 5)}</g>`;
+      });
+      return o;
+    }
+
+    function vbarsChart(c, W, H) {
+      const P = { l: 16, r: 16, t: 34, b: 32 }, n = c.bars.length;
+      const slot = (W - P.l - P.r - 24) / n, bw = Math.min(64, slot * 0.6);
+      const y = (v) => P.t + (1 - v / c.max) * (H - P.t - P.b);
+      const cx = (i) => P.l + slot * i + slot / 2 + (i === n - 1 ? 24 : 0);
+      let o = `<line x1="${P.l}" x2="${W - P.r}" y1="${H - P.b}" y2="${H - P.b}" stroke="rgba(255,255,255,0.18)" stroke-dasharray="3 4"/>`;
+      const divX = P.l + slot * (n - 1) + 12;
+      o += `<line x1="${f1(divX)}" x2="${f1(divX)}" y1="${P.t - 18}" y2="${H - P.b + 8}" stroke="${LIME}" stroke-dasharray="4 4" opacity="0.8"/><text class="hi" x="${f1(divX + 8)}" y="${P.t - 10}" style="font-weight:500">ONE DEFINITION</text>`;
+      c.bars.forEach(([label, v], i) => {
+        const gold = i === n - 1, top = y(v), xx = cx(i) - bw / 2;
+        o += `<rect class="qc-grow-y" style="animation-delay:${(i * 0.1).toFixed(2)}s" x="${f1(xx)}" y="${f1(top)}" width="${f1(bw)}" height="${f1(H - P.b - top)}" rx="7" fill="${gold ? 'url(#qcBarV)' : 'rgba(255,255,255,0.13)'}"/>`;
+        o += `<text class="${gold ? 'good' : 'val'} qc-fade" x="${f1(cx(i))}" y="${f1(top - 9)}" text-anchor="middle">${c.fmt(v)}</text>`;
+        o += `<text class="${gold ? 'good' : ''}" x="${f1(cx(i))}" y="${H - P.b + 20}" text-anchor="middle">${label}</text>`;
+        if (gold) o += `<g class="qc-fade">${ping(cx(i), top, LIME, 5)}</g>`;
+      });
+      return o;
+    }
+
+    const RENDER = { run: runChart, spc: spcChart, hbars: hbarsChart, vbars: vbarsChart };
+    let active = 0, lastW = 0;
+
+    function renderChart(k) {
+      const W = Math.max(280, Math.round(chartEl.clientWidth || 600)), H = 260;
+      lastW = W;
+      chartEl.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${k.title} (illustrative)">${defs}${RENDER[k.chart.type](k.chart, W, H)}</svg>`;
+    }
+
+    function render(k) {
+      titleEl.textContent = k.title;
+      subEl.textContent = k.sub;
+      tagsEl.innerHTML = `<span class="qc-tag">${k.program}</span><span class="qc-tag lime">${k.chartType}</span>`;
+      renderChart(k);
+      const g = k.gap;
+      gapEl.classList.toggle('is-watch', k.status === 'watch');
+      gapEl.innerHTML = `<div class="qc-swap" style="display:flex;flex-direction:column;height:100%">
+        <div class="qc-gap-eyebrow">// ${k.status === 'watch' ? 'AREA OF INTEREST' : 'WHERE THE GAP WAS'}</div>
+        <div class="qc-gap-big">${g.big}</div>
+        <div class="qc-gap-label">${g.label}</div>
+        <div class="qc-gap-title">${g.title}</div>
+        <ol class="qc-steps">${g.steps.map((s, i) => `<li><span>${i + 1}</span>${s}</li>`).join('')}</ol>
+        <div class="qc-gap-row"><span>${g.target}</span><span>OWNER · ${g.owner.toUpperCase()}</span></div>
+      </div>`;
+      [titleEl, subEl, tagsEl].forEach((el) => { el.classList.remove('qc-swap'); void el.offsetWidth; el.classList.add('qc-swap'); });
+    }
+
+    tilesEl.innerHTML = KPIS.map((k, i) => {
+      const color = k.status === 'watch' ? AMBER : GREEN_L;
+      const series = k.spark || k.chart.series;
+      return `<button type="button" class="qc-tile is-${k.status}" role="tab" id="qc-tab-${k.id}" aria-controls="qc-panel" aria-selected="false" tabindex="-1" data-i="${i}">
+        <span class="qc-tile-top"><span class="qc-sdot ${k.status}"></span><span class="qc-tile-label" title="${k.label}">${k.short || k.label}</span><span class="qc-better" title="${k.better === 'down' ? 'Lower' : 'Higher'} is better">${k.better === 'down' ? '↓' : '↑'}<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${k.better === 'down' ? 'lower' : 'higher'} is better</span></span></span>
+        <span class="qc-tile-val">${k.value}<small>${k.unit}</small></span>
+        <span class="qc-tile-bot"><span class="qc-delta ${k.status}">${k.delta}</span>${sparkSvg(series, color)}</span>
+        <span class="qc-prog" aria-hidden="true"></span>
+      </button>`;
+    }).join('');
+    const tiles = Array.from(tilesEl.querySelectorAll('.qc-tile'));
+
+    let elapsed = 0;
+    function select(i, manual) {
+      active = i;
+      tiles.forEach((t, j) => {
+        const on = j === i;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        t.querySelector('.qc-prog').style.transform = 'scaleX(0)';
+      });
+      root.querySelector('#qc-panel').setAttribute('aria-labelledby', tiles[i].id);
+      render(KPIS[i]);
+      elapsed = manual ? -12000 : 0; // linger longer on a measure someone picked
+    }
+
+    tiles.forEach((t, i) => t.addEventListener('click', () => select(i, true)));
+    tilesEl.addEventListener('keydown', (e) => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      const next = (active + step + tiles.length) % tiles.length;
+      select(next, true);
+      tiles[next].focus();
+    });
+
+    select(0, false);
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (Math.abs((chartEl.clientWidth || 0) - lastW) > 8) renderChart(KPIS[active]); }, 150);
+    });
+
+    // "synced Xm ago" ticks up quietly
+    const syncedEl = document.getElementById('qc-synced');
+    const loadedAt = Date.now();
+    setInterval(() => { syncedEl.textContent = `synced ${4 + Math.floor((Date.now() - loadedAt) / 60000)}m ago`; }, 30000);
+
+    // Quiet auto-cycle: pauses on hover/focus and while off-screen
+    if (reduceMotion) { tiles.forEach((t) => t.querySelector('.qc-prog').style.display = 'none'); return; }
+    const CYCLE = 8000;
+    let paused = false, inView = false, last = null;
+    root.addEventListener('mouseenter', () => { paused = true; });
+    root.addEventListener('mouseleave', () => { paused = false; });
+    root.addEventListener('focusin', () => { paused = true; });
+    root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) paused = false; });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => { inView = entries[0].isIntersecting; }, { threshold: 0.35 }).observe(root);
+    } else { inView = true; }
+    function loop(t) {
+      const dt = last == null ? 0 : Math.min(t - last, 100);
+      last = t;
+      if (!paused && inView && !document.hidden) {
+        elapsed += dt;
+        if (elapsed >= CYCLE) select((active + 1) % KPIS.length, false);
+      }
+      tiles[active].querySelector('.qc-prog').style.transform = `scaleX(${Math.max(0, Math.min(elapsed / CYCLE, 1)).toFixed(4)})`;
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
 
   // --- Background network canvas ---
   const canvas = document.getElementById('net');
